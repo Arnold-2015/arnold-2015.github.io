@@ -1,0 +1,15 @@
+body,div,p,h1,h2,h3,h4,h5,td,dd,tr,ul,ol,li,input,table,a{
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+    font-size: 12px;
+}
+ul,ol,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+img{
+    border: none;
+}
