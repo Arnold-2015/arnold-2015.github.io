@@ -1,131 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>慕课网</title>
-    <link href="css/reset.css" rel="stylesheet"/>
-    <link href="css/main.css" rel="stylesheet"/>
-    <script src="js/setHomeSetFav.js" type="text/javascript" charset="GB2312"></script>
-    <script src="js/myfocus-2.0.1.min.js" type="text/javascript"></script>
-    <script src="js/mf-pattern/mF_fancy.js" type="text/javascript"></script>
-    <link href="js/mf-pattern/mF_fancy.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript">
-        myFocus.set({
-            id:"ad"
-        });
-    </script>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}html{font-size: 12px;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;}table{border-collapse:collapse;border-spacing:0;}q:before,q:after{content:'';}object,embed{vertical-align:top;}hr,legend{display:none;}img,abbr,acronym,fieldset{border:0;}ul li{list-style-type:none;}a,label{cursor:pointer;}img{vertical-align:bottom;margin:0;padding:0;}a{text-decoration:none;outline: none;}.clearfix:after{content: "."; visibility: hidden; display: block; height: 0.1px; font-size:0.1em; line-height: 0; clear: both;}.clearfix {*zoom:1;}input ,textarea,select{outline: none;border:1px solid #e6e6e6;}
+	button{cursor: pointer;border:none;outline: none;}textarea{border: 1px solid #ccc;resize: none;outline: none;overflow: hidden;padding: 5px;}select{outline: none;}.text_overflow{overflow:hidden;white-space: nowrap;
+	   	text-overflow: ellipsis;}
+	html {
+		font-family: "Microsoft YaHei",tahoma,arial,"Hiragino Sans GB","\5b8b\4f53",sans-serif;
+		color: #5c5d5e;
+	}
+
+	#picBox {
+		position: relative;
+		width: 980px;
+		height: 300px;
+		margin: 100px auto;
+	}
+	#picMain {
+		position: relative;
+		width: 980px;
+		height: 240px;
+	}
+	#picBox .item {
+		position: absolute;
+	}
+	#picBox .item-link {
+		width: 100%;
+		height: 100%;
+	}
+	#picBox img {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	#picBox .tips {
+		position: absolute;
+		bottom: 15px;
+		width: 100%;
+		height: 20px;
+		font-size: 18px;
+		line-height: 20px;
+		color: red;
+		text-align: center;
+	}
+	#picBox .banner0 {
+		left:0;
+		top:48px;
+		width:240px;
+		height:160px;
+		z-index:1;
+	}
+	#picBox .banner1 {
+		left:98px;
+		top:24px;
+		width:360px;
+		height:200px;
+		z-index:2
+	}
+	#picBox .banner2 {
+		left:235px;
+		top:0;
+		width:550px;
+		height:240px;
+		z-index:3
+	}
+	#picBox .banner3 {
+		left:540px;
+		top:24px;
+		width:360px;
+		height:200px;
+		z-index:2
+	}
+	#picBox .banner4 {
+		left:735px;
+		top:48px;
+		width:240px;
+		height:160px;
+		z-index:1
+	}
+	#dots {
+		width: 200px;
+		height: 20px;
+		margin: 30px auto;
+	}
+	#dots .dot {
+		float: left;
+		width: 15px;
+		height: 15px;
+		border-radius: 50%;
+		background: #dedede;
+		margin-left: 20px;
+	}
+	#dots .dot:hover {
+		background: red;
+	}
+	#dots .dot-active {
+		background: red;
+	}
+	</style>
 </head>
 <body>
-<div class="top">
-    <div class="top-content">
-        <ul>
-            <li>联系我们</li>
-            <li>加入收藏</li>
-            <li>设为首页</li>
-        </ul>
-    </div>
-</div>
-<div class="index-container">
-    <div class="index-header">
-        <div class="index-header-logo"><img src="images/logo.jpg" /></div>
-        <div class="index-header-text"><img src="images/tel.jpg"/>24小时服务热线：<span class="tel">123-456-7890</span> </div>
-    </div>
-    <div class="index-nav">
-        <div class="index-nav-left">
-        <ul>
-            <li><a href="#"> 首页</a></li>
-            <li><a href="#">关于慕课</a></li>
-            <li><a href="#">新闻动态</a></li>
-            <li><a href="#">课程中心</a> </li>
-            <li><a href="#">在线课程</a></li>
-            <li><a href="#">人才招聘</a> </li>
-        </ul>
-        </div>
-        <div class="index-nav-right">
-            <form action="" method="post">
-                <input type="text" class="search"/>
-            </form>
-        </div>
-    </div>
-    <div class="banner" id="ad">
-        <div class="loading"><img src="images/loading.gif" alt="图片君努力加载中"/> </div>
-        <div class="pic">
-        <ul>
-            <li><img src="images/ad2.jpg." /></li>
-            <li><img src="images/ad3.jpg." /></li>
-            <li><img src="images/ad4.jpg." /></li>
-        </ul>
-        </div>
-    </div>
-    <div class="panel">
-        <div class="panel-left">
-            <div class="title"><h2 class="title-left">新闻中心</h2><a class="title-right" href="#">more&gt;&gt;</a> </div>
-            <div class="pic-left"><img src="images/news.jpg"/><p><h2><a href="#" >520 苍井空女神喊你表白</a></h2>活动时间：2015-2016<br>获奖公布时间<br><a href="#">Learn more&gt;&gt;</a> </p> </div>
-            <div class="list-left">
-                <ul>
-                    <li><a href="#">【慕课故事】有为屌丝攀高峰</a> <span>2015-10-01</span></li>
-                    <li><a href="#">【精彩天下】军校的三行情书</a> <span>2015-10-01</span></li>
-                    <li><a href="#">【好好说】打炮天下</a> <span>2015-10-01</span></li>
-                    <li><a href="#">【你有故事吗】女程序员的逆袭</a><span>2015-10-01</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel-mid">
-            <div class="title"><h2 class="title-left">课程中心</h2><a class="title-right" href="#">more&gt;&gt;</a> </div>
-            <div class="pic-mid"><img src="images/css.jpg"/><h2><a href="#">css圆角进化论</a> </h2><p>受到粉丝看附件是为符文是粉丝服务一收到都是你就是的基本就是让我静静儿姐姐诶诶偶尔哦一一打击范围防护问佛为微幅一u覅均为符合我if今晚IE及覅我姐夫IEu符文</p> </div>
-            <div class="list-mid">
-                <ul>
-                    <li><a href="#">php开发</a> </li>
-                    <li><a href="#">前端开发</a> </li>
-                    <li><a href="#">后端开发</a> </li>
-                    <li><a href="#">开移动发</a> </li>
-               </ul>
-            </div>
-        </div>
-        <div class="panel-right">
-            <div class="title"><h2 class="title-left">媒体聚焦</h2> </div>
-            <div class="video-content"><embed src="http://player.youku.com/player.php/sid/XMTUzODcxNDUzNg==/v.swf" allowFullScreen="true" quality="high" width="220" height="140" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></div>
-            <div class="video-app"><img src="images/app.jpg"/> </div>
-        </div>
-    </div>
-</div>
-<div class="copyright">
-        <div class="copyright-container">
-            <ul>
-                <li><a href="#"> 关于</a>
-                    <ul><li><a href="#">品牌故事</a></li>
-                        <li><a href="#">联系我们</a></li>
-                        <li><a href="#">加入我们</a></li>
-                        <li><a href="#">版权申明</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"> 课程</a>
-                    <ul><li><a href="#">PHP开发</a></li>
-                        <li><a href="#">JAVA开发</a></li>
-                        <li><a href="#">前端开发</a></li>
-                        <li><a href="#">安卓开发</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"> 关注</a>
-                    <ul><li><a href="#">新浪微博</a></li>
-                        <li><a href="#">腾讯微博</a></li>
-                        <li><a href="#">企业网站</a></li>
-                        <li><a href="#">QQ空间</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">留言</a>
-                    <ul><li><a href="#">意见反馈</a></li>
-                        <li><a href="#">媒体提问</a></li>
-                        <li><a href="#">问题留言</a></li>
-                        <li><a href="#">在线咨询</a></li>
-                    </ul>
-                </li>
-                <li><img src="images/weixin.png"/><a href="#"> 微信关注</a>
-                    <ul><li><a href="#"><img src="images/qrcode.jpg"/> </a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-</div>
+	<div id="picBox">
+		<ul id='picMain'>
+			<li class="item banner0">
+				<a href="###" class="item-link">
+					<img src="imgs/01.jpeg" alt="这是一张图片" />
+					<p class="tips">我是美男子一号</p>
+				</a>
+			</li>
+			<li class="item banner1">
+				<a href="###" class="item-link">
+					<img src="imgs/02.jpeg" alt="这是一张图片" />
+					<p class="tips">我是帅逼二号</p>
+				</a>
+			</li>
+			<li class="item banner2">
+				<a href="###" class="item-link">
+					<img src="imgs/03.jpeg" alt="这是一张图片" />
+					<p class="tips">我是美男子三号</p>
+				</a>
+			</li>
+			<li class="item banner3">
+				<a href="###" class="item-link">
+					<img src="imgs/04.jpeg" alt="这是一张图片" />
+					<p class="tips">我是美男子四号</p>
+				</a>
+			</li>
+			<li class="item banner4">
+				<a href="###" class="item-link">
+					<img src="imgs/05.jpeg" alt="这是一张图片" />
+					<p class="tips">我是美男子五号</p>
+				</a>
+			</li>
+		</ul>
+		<div id="dots">
+	        <a class="dot"></a>
+	        <a class="dot"></a>
+	        <a class="dot dot-active"></a>
+	        <a class="dot"></a>
+	        <a class="dot"></a>
+	    </div>
+	</div>
+<script type="text/javascript">
+function picSlide(picBox, li, dot, active) {
+	var oThis = this;
+	oThis.picBox = picBox;
+	oThis.li = li;
+	oThis.len = oThis.li.length;
+	oThis.dot = dot;
+	oThis.active = active;
+	oThis.arr = [];
+	oThis.flag = true;
+	oThis.index = Math.floor(oThis.len / 2);
+	oThis.init().timer();
+    oThis.picBox.onmouseover = function() {
+    	oThis.flag = false;
+    };
+    oThis.picBox.onmouseout = function() {
+    	oThis.flag = true;
+    };
+}
+picSlide.prototype = {
+	init : function() {
+		var oThis = this;
+		for(var i = 0; i < oThis.len; i++) {
+	        var item = oThis.li[i];
+	        oThis.arr.push({
+	            top : parseInt(oThis.css(item, 'top')),
+	            left : parseInt(oThis.css(item, 'left')),
+	            width : parseInt(oThis.css(item, 'width')),
+	            height : parseInt(oThis.css(item, 'height')),
+	            zIndex : parseInt(oThis.css(item, 'zIndex'))
+	        });
+	        oThis.dot[i].index = i;
+	        oThis.dot[i].onmouseover = function() {
+	        	oThis.index = this.index;
+	            oThis.scroll(this.index);
+	        }
+	    }
+	    return this;
+	},
+	timer : function() {
+		var oThis = this;
+		setInterval(function() {
+	    	if( oThis.flag ) {
+	    		oThis.index++;
+		    	if( oThis.index >= oThis.len ) {
+		    		oThis.index = 0;
+		    	}
+		    	oThis.scroll(oThis.index);
+	    	}
+	    }, 4000);
+	},
+	css : function(obj , style) {
+		if( obj.currentStyle ) {
+			return obj.currentStyle[style];
+		} else {
+			return getComputedStyle(obj, false)[style];
+		}
+	},
+	tabIndex : function(index) {
+		var oThis = this;
+		for( var i = 0; i < oThis.len ; i++ ) {
+			oThis.dot[i].className = 'dot';
+		}
+		oThis.dot[index].className = oThis.dot[index].className + ' ' +  oThis.active;
+	},
+	tabCenter : function(n , arr) {
+		n -= Math.floor(this.arr.length / 2);
+		for ( var i = 0 ; i < Math.abs(n) ; i++ ) {
+			if(n > 0) {
+                arr.push(arr.shift());
+            } else {
+                arr.unshift(arr.pop());
+            }
+		}
+		return arr;
+	},
+	scroll : function(n) {
+		var oThis = this;
+        oThis.tabIndex(n);
+        var ret = oThis.tabCenter(n, oThis.arr.slice(0));
+        for(var i = 0; i < oThis.len; i++){
+            oThis.li[i].style.zIndex = ret[i].zIndex;
+            oThis.run(oThis.li[i], ret[i]);
+        }
+    },
+	run : function(obj, json) {
+		var oThis = this;
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function(){
+            var stop = true;
+            for(var attr in json){
+                var target = json[attr];
+                var cur = parseInt(oThis.css(obj, attr));
+                var speed = (target - cur) / 8;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if(target != cur){
+                    stop = false;
+                }
+                cur += speed;
+                obj.style[attr] = cur + 'px';
+            }
+            if(stop){
+                clearInterval(obj.timer);
+                obj.timer = null;
+            }
+        }, 30);
+    }
+};
+
+var picBox = document.getElementById('picBox');
+var li = picBox.getElementsByTagName('li');
+var dots = document.getElementById('dots');
+var dot = dots.getElementsByTagName('a');
+new picSlide(picBox, li , dot ,'dot-active');
+
+</script>
 </body>
 </html>
