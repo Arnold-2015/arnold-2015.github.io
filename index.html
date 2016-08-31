@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片切换（自定义属性）</title>
+    <style>
+        body{background: #000000}
+        body,p,ul,li,span{padding: 0;margin: 0;}
+        div{width: 400px;height: 500px;background: url("img/loader_ico.gif")no-repeat center #ffffff;position: relative;margin: 50px auto}
+        img{width: 400px;height: 500px}
+        span,p{width: 400px;height: 30px;line-height:30px;text-align:center;position: absolute;color: #ffffff}
+        span{top: 0;background: #3b3b3b}
+        p{bottom: 0;background: #3b3b3b}
+        ul{width: 50px;position: absolute;top: 0;right:-60px}
+        li{width: 50px;height: 50px;list-style: none;background: #3b3b3b;margin-bottom: 5px}
+        .active{background: #e27a00}
+    </style>
+    <script>
+        window.onload=function(){
+            var oImg=document.getElementsByTagName('img')[0];
+            var oSpan=document.getElementsByTagName('span')[0];
+            var oP=document.getElementsByTagName('p')[0];
+            var oUl=document.getElementsByTagName('ul')[0];
+            var aLi=document.getElementsByTagName('li');
+
+            var arrUrl=['img/1.png','img/2.png','img/3.png','img/4.png']
+            var arrText=['图片一','图片二','图片三','图片四']
+            var num=0;
+
+            for(var i=0;i<arrText.length;i++){
+                oUl.innerHTML+= '<li>'+'</li>';
+            }
+
+            //初始化
+            var fnTab=function(){
+            oSpan.innerHTML=1+num +'/'+ arrText.length;
+            oImg.src=arrUrl[num];
+            oP.innerHTML=arrText[num];
+            aLi[num].className='active';}
+            fnTab();
+            for(var i=0;i<aLi.length;i++){
+                aLi[i].index=i;
+                aLi[i].onclick=function(){
+                    //alert(this.index);
+                    aLi[num].className='';
+                 num=this.index;
+                    fnTab();
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div>
+    <span>图片数量计算中...</span>
+    <img src=""/>
+    <p>图片说明加载中...</p>
+    <ul>
+
+
+    </ul>
+</div>
+</body>
+</html>
