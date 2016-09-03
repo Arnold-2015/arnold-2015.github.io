@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后会无期</title>
+    <style>
+        body{background: #3b3b3b}
+        ul,li,div,a{margin: 0;padding: 0}
+        div{width: 500px;height: 400px;position: relative;top: 50px;margin: 100px auto;}
+        div img{width: 500px;height: 400px;}
+        li{list-style: none;width: 16px;height: 16px;background: #8e8e8e;float:left;margin-left:10px;position: relative;}
+        ul li img{width: 100px;height: 80px;position: absolute;top: -85px;left: -42px;display: none;}
+        ul{position:absolute;left:164px; bottom: -40px; }
+        .active {background: #e27a00;}
+        #prev{left: 0;}
+        #next{right: 0;}
+        a{text-decoration: none;color: #ffffff;display: block;width: 40px;height: 40px;line-height:40px;background: #e27a00; filter:alpha(opacity:40); opacity:0.4; position:absolute; top:180px; font-size:30px;  text-align:center;}
+        a:hover { filter:alpha(opacity:80); opacity:0.8; }
+    </style>
+<script>
+window.onload= function () {
+    var oDiv=document.getElementsByTagName('div')[0];
+    var oImg=document.getElementById('oimg');
+    var oPrev=document.getElementById('prev');
+    var oNext=document.getElementById('next');
+    var oUl=oDiv.getElementsByTagName('ul')[0];
+    var aLi=oDiv.getElementsByTagName('li');
+    var aImg=oUl.getElementsByTagName('img');
+    var arrUrl=['img/1.jpeg','img/2.jpeg','img/3.jpeg','img/4.jpeg','img/5.jpeg','img/6.jpeg','img/7.jpeg'];
+    var num=0;
+    var timer=null;
+    function autoPlay(){
+        timer=setInterval(function(){
+            num++;
+        if(num===arrUrl.length){
+            aLi[arrUrl.length-1].className='';
+            num=0;
+            fnTab();
+        }
+        else{
+            aLi[num-1].className='';
+            fnTab();
+        }
+    },3000)}
+    autoPlay();
+    oDiv.onmouseover=function(){
+        clearInterval(timer);
+    }
+    oDiv.onmouseout=autoPlay;
+
+    for(var i=0;i<arrUrl.length;i++){
+        oUl.innerHTML+='<li><img src=""/></li>';
+    }
+    //初始化
+    var fnTab=function(){
+        oImg.src=arrUrl[num];
+        aLi[num].className='active';
+    }
+    fnTab();
+   oPrev.onclick=function(){
+       aLi[num].className='';
+       num--;
+       if(num==-1){num=arrUrl.length-1;}
+       fnTab();
+   }
+    oNext.onclick=function(){
+        aLi[num].className='';
+        num++;
+        if(num==arrUrl.length){num=0;}
+        fnTab();
+    }
+    for(var i=0;i<arrUrl.length;i++){
+        aLi[i].index=i;
+        aLi[i].onmouseover=function(){
+          aImg[this.index].src=arrUrl[this.index];
+          aImg[this.index].style.display='block';
+        }
+        aLi[i].onmouseout=function(){
+            aImg[this.index].src=arrUrl[this.index];
+            aImg[this.index].style.display='none';
+        }
+        aLi[i].onclick=function(){
+            aLi[num].className='';
+            num=this.index;
+            fnTab();
+        }
+    }
+}
+</script>
+<body>
+<div>
+    <img id='oimg' src="img/loader_ico.gif"/>
+    <a id='prev' href="#"><</a>
+    <a id='next' href="#">></a>
+    <ul>
+
+    </ul>
+
+</div>
+</body>
+</html>
