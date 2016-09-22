@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标移入移出图片放大</title>
+    <link href="../reset.css" rel="stylesheet" type="text/css"/>
+    <script src="../myFunctions.js" type="text/javascript"></script>
+    <script>
+        window.onload=function(){
+            var oImg=document.getElementsByTagName('img')[0];
+            oImg.onmouseover=function(){
+                perfectMove(this,{width:600,height:500,marginLeft:-50,marginTop:-50});
+            }
+            oImg.onmouseout=function(){
+                perfectMove(this,{width:500,height:400,marginLeft:0,marginTop:0});
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="demo1">
+    <img src="../imgs/08.jpg" style="width: 500px;height: 400px;margin: 0;"/>
+</div>
+</body>
+</html>
