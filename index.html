@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Arnold's CV</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/jquery-3.1.0.js"></script>
-    <script src="js/navFixed.js"></script>
-    <script src="js/main.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/navFixed.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
 <section id="block-firstPage">
@@ -17,24 +19,24 @@
     <div id="fstPage-down"><a href="#block-intro" ></a></div>
 </section>
 
-
 <section id="block-nav">
-    <header class="container">
+    <div class="container">
         <a class="fl" href="#block-firstPage" id="logo" >Arnold</a>
-        <nav class="fr">
+        <div class="fr">
             <a href="#block-intro" id="nav-intro" >个人简介</a>
             <a href="#block-skill" id="nav-skill" >专业技能</a>
             <a href="#block-workEXP" id="nav-workEXP" >工作经历</a>
             <a href="#block-prjEXP" id="nav-prjEXP" >个人作品</a>
             <a href="#block-wantMore" id="nav-wantMore" >联系邮箱</a>
-        </nav>
-    </header>
+        </div>
+    </div>
 </section>
 
 <section id="block-intro">
     <div class="container">
         <div id="intro-icon">
             <img id="myPhoto" src="img/myPhoto.jpg">
+            <div id="slog">一腔热血的激情，一夜未眠的创意，一个像素的执着</div>
         </div>
 
         <div id="intro-text">
@@ -49,7 +51,7 @@
             <div class="fr">
                 <p>热爱前端，喜欢用最扎实的代码技术做出效果上最炫，代码上最合理的页面<br>熟悉js dom, event,ajax, 能够编写基本的js原生代码<br>能够熟练使用photoshop, sublime text, webstorm等工具进行前端页面手工式的开发任务。</p>
                 <p> 熟悉jquery api，能够编写最基本的动态交互效果，并擅长用jquery插件来封装日常的开发组件，能够保证代码的性能或可难搞性<br>
-                    目前正在关注移动端的html5,css3, node.js<br>
+                    目前正在关注移动端的html5,css3, node.js,bootstrap<br>
                 </p>
             </div>
         </div>
@@ -60,19 +62,7 @@
 
 <section id="block-skill">
     <div class="container">
-        <div class="skill-title">
-            <h2>专 业 技 能</h2>
-        </div>
-        <div class="skills">
-            <ul class="skill-lang">
-                <li>语言</li>
-                <li>HTML(5)</li>
-                <li>CSS(3)</li>
-                <li>Javascript</li>
-                <li>PHP</li>
-            </ul>
 
-        </div>
     </div>
 </section>
 
@@ -96,7 +86,7 @@
                 <li class="work-intro1">
                     <label class="work-place">国防科技大学计算机学院政工办</label>
                     <label class="work-position">政工网干事</label>
-                    <label class="work-do">负责学院政工网站设计、开发、维护</label>
+                    <label class="work-do">负责学院政工网站前端设计、开发、维护</label>
                 </li>
             </ul>
         </div>
@@ -108,25 +98,7 @@
         <div class="prjEXP-title">
             <h2>个 人 作 品</h2>
         </div>
-        <ul class="prjs">
-            <li class="prj" id="prj-helpmechoose">
-                <div class="prj-logo"></div>
-                <h3 class="prj-title">帮我选</h3>
-                <p class="prj-intro">一个帮助选择困难症人群选择吃什么的网站。项目为独立开发项目。</p>
-            </li>
 
-            <li class="prj" id="prj-navFixed">
-                <div class="prj-logo"></div>
-                <h3 class="prj-title"><a href="http://navfixed.jasinyip.com" target="_blank">navFixed 插件</a></h3>
-                <p class="prj-intro">一款超轻量级的 jQuery 插件。它可以让原本不是在顶部的导航条，在滚动到它的位置时固定在顶部。本页的导航条也使用此插件。</p>
-            </li>
-
-            <li class="prj" id="prj-integralSystem">
-                <div class="prj-logo"></div>
-                <h3 class="prj-title">工学积分系统</h3>
-                <p class="prj-intro">为工学咨询工作室做的积分系统，包括后台管理系统，以及微信公众平台的开发。项目中主要工作是前端及PM，与两名php程序员一起开发。</p>
-            </li>
-        </ul>
     </div>
 </section>
 
