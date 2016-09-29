@@ -14,45 +14,7 @@
         #big{width:300px;height:300px;position: absolute;left:410px;top:-1px;border:1px solid #3b3b3b;overflow: hidden;display: none;}
         #pic-big{width:800px;height:800px;position: absolute;left:0;top:0;}
     </style>
-    <script>
-        window.onload=function(){
-            oDemo=document.getElementById('demo');
-            oSmall=document.getElementById('small');
-            oPicSmall=document.getElementById('pic-small');
-            oLayer=document.getElementById('layer');
-            oBig=document.getElementById('big');
-            oPicBig=document.getElementById('pic-big');
 
-            oSmall.onmousemove=function(ev){
-                ev=ev||event;
-                this.style.cursor='move';
-                oLayer.style.display=oBig.style.display='block';
-                var l=ev.clientX-oDemo.offsetLeft-oLayer.clientWidth/2;
-                var t=ev.clientY-oDemo.offsetTop-oLayer.clientHeight/2;
-                if(l<0){
-                    l=0;
-                }else if(l>oSmall.clientWidth-oLayer.clientWidth){
-                    l=oSmall.clientWidth-oLayer.clientWidth;
-                }
-                if(t<0){
-                    t=0;
-                }else if(t>oSmall.clientHeight-oLayer.clientHeight){
-                    t=oSmall.clientHeight-oLayer.clientHeight;
-                }
-                var scaleX=l/(oSmall.clientWidth-oLayer.clientWidth);
-                var scaleY=t/(oSmall.clientHeight-oLayer.clientHeight);
-                oLayer.style.left=l+'px';
-                oLayer.style.top=t+'px';
-                oPicBig.style.left=-scaleX*(oPicBig.clientWidth-oBig.clientWidth)+'px';
-                oPicBig.style.top=-scaleY*(oPicBig.clientHeight-oBig.clientHeight)+'px';
-            }
-            oSmall.onmouseout=function(ev){
-                ev=ev||event;
-                oLayer.style.display=oBig.style.display='none';
-            }
-
-        }
-    </script>
 </head>
 <body>
 <div id="demo">
@@ -64,5 +26,45 @@
         <img src="../imgs/08.jpg" id="pic-big"/>
     </div>
 </div>
+
+<script>
+    window.onload=function(){
+        oDemo=document.getElementById('demo');
+        oSmall=document.getElementById('small');
+        oPicSmall=document.getElementById('pic-small');
+        oLayer=document.getElementById('layer');
+        oBig=document.getElementById('big');
+        oPicBig=document.getElementById('pic-big');
+
+        oSmall.onmousemove=function(ev){
+            ev=ev||event;
+            this.style.cursor='move';
+            oLayer.style.display=oBig.style.display='block';
+            var l=ev.clientX-oDemo.offsetLeft-oLayer.clientWidth/2;
+            var t=ev.clientY-oDemo.offsetTop-oLayer.clientHeight/2;
+            if(l<0){
+                l=0;
+            }else if(l>oSmall.clientWidth-oLayer.clientWidth){
+                l=oSmall.clientWidth-oLayer.clientWidth;
+            }
+            if(t<0){
+                t=0;
+            }else if(t>oSmall.clientHeight-oLayer.clientHeight){
+                t=oSmall.clientHeight-oLayer.clientHeight;
+            }
+            var scaleX=l/(oSmall.clientWidth-oLayer.clientWidth);
+            var scaleY=t/(oSmall.clientHeight-oLayer.clientHeight);
+            oLayer.style.left=l+'px';
+            oLayer.style.top=t+'px';
+            oPicBig.style.left=-scaleX*(oPicBig.clientWidth-oBig.clientWidth)+'px';
+            oPicBig.style.top=-scaleY*(oPicBig.clientHeight-oBig.clientHeight)+'px';
+        }
+        oSmall.onmouseout=function(ev){
+            ev=ev||event;
+            oLayer.style.display=oBig.style.display='none';
+        }
+
+    }
+</script>
 </body>
 </html>
