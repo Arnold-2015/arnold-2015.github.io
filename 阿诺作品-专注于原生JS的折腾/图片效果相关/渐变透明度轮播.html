@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变透明度轮播</title>
+    <link href="../reset.css" rel="stylesheet"/>
+    <style>
+        #demo{width:600px;height:400px;margin:100px auto;position:relative;}
+        #main{width:600px;height:400px;position:relative;}
+        .main-item{width:600px;height:400px;position:absolute;left:0;top:0;z-index: 1;filter:alpha(opacity:100);opacity:1;}
+        .main-item img{width:600px;height:400px;}
+        #tab{width: 600px;height:40px;position:absolute;left:0;bottom: 0;z-index:2;}
+        .tab-item{width:145px;height:40px;float:left;margin:0 0 0 4px;background:#3c3c3c;filter:alpha(opacity:60);opacity:0.6;}
+        .tab-active{background: #ff0000;}
+    </style>
+</head>
+<body>
+<div id="demo">
+    <ul id="main">
+        <li class="main-item main-active"><img src="../imgs/01.jpg" rel="图片加载中"/></li>
+        <li class="main-item "><img src="../imgs/02.jpg" rel="图片加载中"/> </li>
+        <li class="main-item "><img src="../imgs/03.jpg" rel="图片加载中"/> </li>
+        <li class="main-item "><img src="../imgs/04.jpg" rel="图片加载中"/> </li>
+    </ul>
+    <ul id="tab">
+        <li class="tab-item tab-active"></li>
+        <li class="tab-item "></li>
+        <li class="tab-item "></li>
+        <li class="tab-item "></li>
+    </ul>
+    <script type="text/javascript">
+        window.onload=function(){
+            var demo=document.getElementById('demo'),
+                 main=document.getElementById('main'),
+                 aMain=main.getElementsByTagName('li'),
+                 tab=document.getElementById('tab'),
+                 aTab=tab.getElementsByTagName('li'),
+                 tmp=0;
+
+            for(var i=0;i<aMain.length;i++){
+                aTab[i] .index=i;
+                aTab[i].onmouseover=function(){
+               fadeTo(this.index);
+                }
+            }
+            function fadeTo(index){
+                for(var i=0;i<aMain.length;i++){
+                    aTab[i].className='tab-item';
+                    fade(aMain[i],0);
+                }
+                aTab[index].className+=' tab-active';
+                fade(aMain[index],100);
+            }
+            function  auto(){
+                tmp++;
+                if(tmp==aTab.length){
+                    tmp=0;
+                }
+                fadeTo(tmp);
+            }
+            timer=setInterval(auto,2000);
+
+            demo.onmouseover=function(){
+                clearInterval(timer);
+            }
+            demo.onmouseout= function () {
+                timer=setInterval(auto,2000);
+            }
+
+            function fade(obj,target){
+                clearInterval( obj.timer );
+                obj.timer = setInterval(function () {
+                    //取值
+                    iCur=parseInt(100*parseFloat(getStyle( obj, 'opacity' )));
+                    //计算速度
+                    var iSpeed = (target-iCur)/8;			// 速度
+                    iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+                    //判断停止
+                    if ( iCur == target ) {
+                        clearInterval( obj.timer );
+                        // if ( endFn ) {endFn();}
+                        endFn && endFn();
+                    }
+                    else{
+                            obj.style.filter ='alpha(opacity:'+(iCur+iSpeed)+')';
+                            obj.style.opacity=(iCur+iSpeed)/100;
+                        }
+                }, 30);
+            }
+            //getStyle方法封装
+            function getStyle ( obj, attr ) { return obj.currentStyle?obj.currentStyle[attr] : getComputedStyle( obj )[attr]; }
+
+        }
+    </script>
+</div>
+</body>
+</html>

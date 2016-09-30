@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>旋转木马</title>
+    <style type="text/css">
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}html{font-size: 12px;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;}table{border-collapse:collapse;border-spacing:0;}q:before,q:after{content:'';}object,embed{vertical-align:top;}hr,legend{display:none;}img,abbr,acronym,fieldset{border:0;}ul li{list-style-type:none;}a,label{cursor:pointer;}img{vertical-align:bottom;margin:0;padding:0;}a{text-decoration:none;outline: none;}.clearfix:after{content: "."; visibility: hidden; display: block; height: 0.1px; font-size:0.1em; line-height: 0; clear: both;}.clearfix {*zoom:1;}input ,textarea,select{outline: none;border:1px solid #e6e6e6;}
+        button{cursor: pointer;border:none;outline: none;}textarea{border: 1px solid #ccc;resize: none;outline: none;overflow: hidden;padding: 5px;}select{outline: none;}.text_overflow{overflow:hidden;white-space: nowrap;
+                                                                                                                                                                              text-overflow: ellipsis;}
+        html {
+            font-family: "Microsoft YaHei",tahoma,arial,"Hiragino Sans GB","\5b8b\4f53",sans-serif;
+            color: #5c5d5e;
+        }
+
+        #picBox {
+            position: relative;
+            width: 980px;
+            height: 300px;
+            margin: 100px auto;
+        }
+        #picMain {
+            position: relative;
+            width: 980px;
+            height: 240px;
+        }
+        #picBox .item {
+            position: absolute;
+        }
+        #picBox .item-link {
+            width: 100%;
+            height: 100%;
+        }
+        #picBox img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #picBox .tips {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            height: 20px;
+            font-size: 18px;
+            line-height: 20px;
+            color: red;
+            text-align: center;
+        }
+        #picBox .banner0 {
+            left:0;
+            top:48px;
+            width:240px;
+            height:160px;
+            z-index:1;
+        }
+        #picBox .banner1 {
+            left:98px;
+            top:24px;
+            width:360px;
+            height:200px;
+            z-index:2
+        }
+        #picBox .banner2 {
+            left:235px;
+            top:0;
+            width:550px;
+            height:240px;
+            z-index:3
+        }
+        #picBox .banner3 {
+            left:540px;
+            top:24px;
+            width:360px;
+            height:200px;
+            z-index:2
+        }
+        #picBox .banner4 {
+            left:735px;
+            top:48px;
+            width:240px;
+            height:160px;
+            z-index:1
+        }
+        #dots {
+            width: 200px;
+            height: 20px;
+            margin: 30px auto;
+        }
+        #dots .dot {
+            float: left;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #dedede;
+            margin-left: 20px;
+        }
+        #dots .dot:hover {
+            background: red;
+        }
+        #dots .dot-active {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="picBox">
+    <ul id='picMain'>
+        <li class="item banner0">
+            <a href="###" class="item-link">
+                <img src="../imgs/01.jpg" alt="这是一张图片" />
+            </a>
+        </li>
+        <li class="item banner1">
+            <a href="###" class="item-link">
+                <img src="../imgs/02.jpg" alt="这是一张图片" />
+            </a>
+        </li>
+        <li class="item banner2">
+            <a href="###" class="item-link">
+                <img src="../imgs/03.jpg" alt="这是一张图片" />
+            </a>
+        </li>
+        <li class="item banner3">
+            <a href="###" class="item-link">
+                <img src="../imgs/04.jpg" alt="这是一张图片" />
+            </a>
+        </li>
+        <li class="item banner4">
+            <a href="###" class="item-link">
+                <img src="../imgs/05.jpg" alt="这是一张图片" />
+            </a>
+        </li>
+    </ul>
+    <div id="dots">
+        <a class="dot"></a>
+        <a class="dot"></a>
+        <a class="dot dot-active"></a>
+        <a class="dot"></a>
+        <a class="dot"></a>
+    </div>
+</div>
+<script>
+    (function(){
+        var box = document.getElementById('picBox');
+        var ul = document.getElementById('picMain');
+        var li = ul.getElementsByTagName('li');
+        var len = li.length;
+        var dots = document.getElementById('dots');
+        var dot = dots.getElementsByTagName('a');
+        var arr = [];
+        var flag=true;
+        var index=2;
+        box.onmouseover=function(){
+            flag=false;
+        }
+        box.onmouseout=function(){
+            flag=true;
+        }
+        var timer=function(){
+            setInterval(function(){
+                if(flag){
+                    index++;
+                    if(index>=len){
+                        index=0;
+                    }
+                    scroll(index);
+                }
+            },1500)
+        }
+        timer();
+        for(var i = 0; i < len; i++){
+            var item = li[i];
+            arr.push({
+                top : parseInt(css(item, 'top')),
+                left : parseInt(css(item, 'left')),
+                width : parseInt(css(item, 'width')),
+                height : parseInt(css(item, 'height')),
+                zIndex : parseInt(css(item, 'zIndex'))
+            });
+            dot[i].index = i;
+            dot[i].onmouseover = function(){
+                index=this.index;
+                scroll(this.index);
+            }
+        }
+        function scroll(n){
+            tab(n);
+            var ret = center(n, arr.slice(0));
+            for(var i = 0; i < len; i++){
+                li[i].style.zIndex = ret[i].zIndex;
+                act(li[i], ret[i]);
+            }
+        }
+        function tab(n){
+            for(var i = 0; i < len; i++){
+                dot[i].className = 'dot';
+            }
+            dot[n].className += ' dot-active';
+        }
+        function center(n, arr){
+            n -= Math.floor(arr.length / 2);
+            for(var i = 0; i < Math.abs(n); i++){
+                if(n > 0){
+                    arr.push(arr.shift());
+                } else {
+                    arr.unshift(arr.pop());
+                }
+            }
+            return arr;
+        }
+        function css(obj, attr){
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            } else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+        function act(obj, json, fn){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                var stop = true;
+                for(var attr in json){
+                    var target = json[attr];
+                    var cur = parseInt(css(obj, attr));
+                    var speed = (target - cur) / 8;
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    if(target != cur){
+                        stop = false;
+                    }
+                    cur += speed;
+                    obj.style[attr] = cur + 'px';
+                }
+                if(stop){
+                    clearInterval(obj.timer);
+                    obj.timer = null;
+                    fn && fn();
+                }
+            }, 30);
+        }
+
+    }());
+</script>
+</body>
+</html>
