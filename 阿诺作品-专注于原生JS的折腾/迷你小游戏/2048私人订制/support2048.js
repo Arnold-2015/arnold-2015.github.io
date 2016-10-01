@@ -38,7 +38,7 @@ function getNumberColor( number ){
 
 function getNumberText( number ){
     switch( number ){
-        case 2:return "小白";break;
+        /*case 2:return "";break;
         case 4:return "实习生";break;
         case 8:return "程序猿";break;
         case 16:return "项目经理";break;
@@ -49,6 +49,19 @@ function getNumberText( number ){
         case 512:return "副总裁";break;
         case 1024:return "CTO";break;
         case 2048:return "总裁";break;
+        case 4096:return "#a6c";break;
+        case 8192:return "#93c";break;*/
+        case 2:return "日";break;
+        case 4:return "柯";break;
+        case 8:return "叶";break;
+        case 16:return "翔";break;
+        case 32:return "真";break;
+        case 64:return "他";break;
+        case 128:return "妈";break;
+        case 256:return "的";break;
+        case 512:return "牛";break;
+        case 1024:return "逼";break;
+        case 2048:return "啊";break;
         case 4096:return "#a6c";break;
         case 8192:return "#93c";break;
     }
