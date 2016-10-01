@@ -16,6 +16,76 @@
         #next{width:50px;height:50px;line-height:45px;background: #3c3c3c;color:#fff;position:absolute;right:0;top:125px;font-size: 40px;font-weight:bold;text-align: center;opacity:0.7}
 
     </style>
+    <script rel="javascript">
+        window.onload=function(){
+            var demo=document.getElementById('demo');
+            var main=document.getElementById('main');
+            var aPic=main.getElementsByTagName('img');
+            var switchBar=document.getElementById('switch-bar');
+            var aSwitch=switchBar.getElementsByTagName('a');
+            var prev=document.getElementById('prev');
+            var next=document.getElementById('next');
+            main.innerHTML+=main.innerHTML;
+            var len=aPic.length;
+            var l=len/2;
+            var width=aPic[0].offsetWidth;
+            var index=0;
+
+
+            //上一张
+            function goPrev(){
+                if(index==0){
+                    index=l-1;
+                    main.style.left=-l*width+'px';
+                }else{
+                    index--;
+                }
+                for(var i= 0;i<l;i++){
+                    aSwitch[i].className='switch-item';
+                    aSwitch[index].className+=' active';
+                }
+                startMove(main,'left',-index*width);
+            }
+            prev.onclick=goPrev;
+            //下一张
+            function goNext(){
+                if(index==len-1){
+                    index=l;
+                    main.style.left=-(l-1)*width+'px';
+                }else{
+                    index++;
+                }
+                for(var i= 0;i<l;i++){
+                    aSwitch[i].className='switch-item';
+                    aSwitch[index%l].className+=' active';
+                }
+                startMove(main,'left',-index*width);
+            }
+            next.onclick=goNext;
+
+            //自动播放
+            timer=setInterval(goNext,2000);
+            demo.onmouseover=function(){
+                clearInterval(timer);
+            }
+            demo.onmouseout=function(){
+                timer=setInterval(goNext,2000);
+            }
+
+            for(var i=0;i<l;i++){
+                aSwitch[i].index=i;
+                aSwitch[i].onmouseover=function(){
+                    index=this.index;
+                    for(var j=0;j<l;j++){
+                        aSwitch[j].className='switch-item';
+                    }
+                    aSwitch[index%l].className+=' active';
+                    startMove(main,'left',-index*width);
+                }
+            }
+
+        }
+    </script>
 </head>
 <body>
 <div id="demo" >
@@ -37,75 +107,6 @@
     <a id="next" href="javascript:;"> > </a>
 </div>
 
-<script rel="javascript">
-    window.onload=function(){
-        var demo=document.getElementById('demo');
-        var main=document.getElementById('main');
-        var aPic=main.getElementsByTagName('img');
-        var switchBar=document.getElementById('switch-bar');
-        var aSwitch=switchBar.getElementsByTagName('a');
-        var prev=document.getElementById('prev');
-        var next=document.getElementById('next');
-        main.innerHTML+=main.innerHTML;
-        var len=aPic.length;
-        var l=len/2;
-        var width=aPic[0].offsetWidth;
-        var index=0;
 
-
-        //上一张
-        function goPrev(){
-            if(index==0){
-                index=l-1;
-                main.style.left=-l*width+'px';
-            }else{
-                index--;
-            }
-            for(var i= 0;i<l;i++){
-                aSwitch[i].className='switch-item';
-                aSwitch[index].className+=' active';
-            }
-            startMove(main,'left',-index*width);
-        }
-        prev.onclick=goPrev;
-        //下一张
-        function goNext(){
-            if(index==len-1){
-                index=l;
-                main.style.left=-(l-1)*width+'px';
-            }else{
-                index++;
-            }
-            for(var i= 0;i<l;i++){
-                aSwitch[i].className='switch-item';
-                aSwitch[index%l].className+=' active';
-            }
-            startMove(main,'left',-index*width);
-        }
-        next.onclick=goNext;
-
-         //自动播放
-        timer=setInterval(goNext,2000);
-        demo.onmouseover=function(){
-            clearInterval(timer);
-        }
-        demo.onmouseout=function(){
-            timer=setInterval(goNext,2000);
-        }
-
-        for(var i=0;i<l;i++){
-            aSwitch[i].index=i;
-            aSwitch[i].onmouseover=function(){
-                index=this.index;
-                for(var j=0;j<l;j++){
-                    aSwitch[j].className='switch-item';
-                }
-                aSwitch[index%l].className+=' active';
-                startMove(main,'left',-index*width);
-            }
-        }
-
-    }
-</script>
 </body>
 </html>
