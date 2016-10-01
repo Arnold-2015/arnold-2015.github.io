@@ -13,19 +13,34 @@
         .tab-item{width:145px;height:40px;float:left;margin:0 0 0 4px;background:#3c3c3c;filter:alpha(opacity:60);opacity:0.6;}
         .tab-active{background: #ff0000;}
     </style>
+</head>
+<body>
+<div id="demo">
+    <ul id="main">
+        <li class="main-item main-active"><img src="../imgs/01.jpg" rel="图片加载中"/></li>
+        <li class="main-item "><img src="../imgs/02.jpg" rel="图片加载中"/> </li>
+        <li class="main-item "><img src="../imgs/03.jpg" rel="图片加载中"/> </li>
+        <li class="main-item "><img src="../imgs/04.jpg" rel="图片加载中"/> </li>
+    </ul>
+    <ul id="tab">
+        <li class="tab-item tab-active"></li>
+        <li class="tab-item "></li>
+        <li class="tab-item "></li>
+        <li class="tab-item "></li>
+    </ul>
     <script type="text/javascript">
         window.onload=function(){
             var demo=document.getElementById('demo'),
-                    main=document.getElementById('main'),
-                    aMain=main.getElementsByTagName('li'),
-                    tab=document.getElementById('tab'),
-                    aTab=tab.getElementsByTagName('li'),
-                    tmp=0;
+                 main=document.getElementById('main'),
+                 aMain=main.getElementsByTagName('li'),
+                 tab=document.getElementById('tab'),
+                 aTab=tab.getElementsByTagName('li'),
+                 tmp=0;
 
             for(var i=0;i<aMain.length;i++){
                 aTab[i] .index=i;
                 aTab[i].onmouseover=function(){
-                    fadeTo(this.index);
+               fadeTo(this.index);
                 }
             }
             function fadeTo(index){
@@ -67,9 +82,9 @@
                         endFn && endFn();
                     }
                     else{
-                        obj.style.filter ='alpha(opacity:'+(iCur+iSpeed)+')';
-                        obj.style.opacity=(iCur+iSpeed)/100;
-                    }
+                            obj.style.filter ='alpha(opacity:'+(iCur+iSpeed)+')';
+                            obj.style.opacity=(iCur+iSpeed)/100;
+                        }
                 }, 30);
             }
             //getStyle方法封装
@@ -77,22 +92,6 @@
 
         }
     </script>
-</head>
-<body>
-<div id="demo">
-    <ul id="main">
-        <li class="main-item main-active"><img src="../imgs/01.jpg" rel="图片加载中"/></li>
-        <li class="main-item "><img src="../imgs/02.jpg" rel="图片加载中"/> </li>
-        <li class="main-item "><img src="../imgs/03.jpg" rel="图片加载中"/> </li>
-        <li class="main-item "><img src="../imgs/04.jpg" rel="图片加载中"/> </li>
-    </ul>
-    <ul id="tab">
-        <li class="tab-item tab-active"></li>
-        <li class="tab-item "></li>
-        <li class="tab-item "></li>
-        <li class="tab-item "></li>
-    </ul>
-
 </div>
 </body>
 </html>
