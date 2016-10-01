@@ -28,89 +28,89 @@
         <li class="tab-item "></li>
         <li class="tab-item "></li>
     </ul>
-    <script type="text/javascript">
-        window.onload=function(){
-            var demo=document.getElementById('demo'),
-                    main=document.getElementById('main'),
-                    aMain=main.getElementsByTagName('li'),
-                    tab=document.getElementById('tab'),
-                    aTab=tab.getElementsByTagName('li'),
-                    tmp= 1,
-                    index=0;
-            var timer=null;
-            for(var i=0;i<aTab.length;i++){
-                aTab[i].index=i;
-                aTab[i].onmouseover=function(){
-                    changeTo(this.index);
-                }
-            }
-            function changeTo(index){
-                for(var i=0;i<aTab.length;i++){
-                    aTab[i].className='tab-item';
-                }
-                aTab[index].className+=' tab-active';
-                aMain[index].style.zIndex=tmp++;
-                tab.style.zIndex=tmp;
-                aMain[index].style.height=0+'px';
-               startMove(aMain[index],'height',400);
-            }
-
-            function auto(){
-                index++;
-                if(index==aTab.length){
-                    index=0;
-                }
-                changeTo(index);
-            }
-
-            timer=setInterval(auto,2000);
-
-            demo.onmouseover=function(){
-                clearInterval(timer);
-            }
-            demo.onmouseout= function () {
-                timer=setInterval(auto,2000);
-            }
-
-
-
-            function startMove ( obj, attr, target, endFn ) {
-                clearInterval( obj.timer );
-                obj.timer = setInterval(function () {
-                    //取值
-                    var iCur=0;
-                    if(attr=='opacity'){
-                        iCur=parseInt(100*parseFloat(getStyle( obj, attr )));
-                    }
-                    else{
-                        iCur=parseInt(getStyle( obj, attr ));
-                    }
-                    //计算速度
-                    var iSpeed = (target-iCur)/8;			// 速度
-                    iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
-                    //判断停止
-                    if ( iCur == target ) {
-                        clearInterval( obj.timer );
-                        // if ( endFn ) {endFn();}
-                        endFn && endFn();
-                    }
-                    else{
-
-                        if(attr=='opacity'){
-                            obj.style.filter ='alpha(opacity:'+(iCur+iSpeed)+')';
-                            obj.style.opacity=(iCur+iSpeed)/100;
-                        }
-                        else{
-                            obj.style[attr] = iCur+iSpeed + 'px';
-                        }
-                    }
-                }, 30);
-            }
-            //getStyle方法封装
-            function getStyle ( obj, attr ) { return obj.currentStyle?obj.currentStyle[attr] : getComputedStyle( obj )[attr]; }
-
-        }
-    </script>
 </div>
+<script type="text/javascript">
+    window.onload=function(){
+        var demo=document.getElementById('demo'),
+                main=document.getElementById('main'),
+                aMain=main.getElementsByTagName('li'),
+                tab=document.getElementById('tab'),
+                aTab=tab.getElementsByTagName('li'),
+                tmp= 1,
+                index=0;
+        var timer=null;
+        for(var i=0;i<aTab.length;i++){
+            aTab[i].index=i;
+            aTab[i].onmouseover=function(){
+                changeTo(this.index);
+            }
+        }
+        function changeTo(index){
+            for(var i=0;i<aTab.length;i++){
+                aTab[i].className='tab-item';
+            }
+            aTab[index].className+=' tab-active';
+            aMain[index].style.zIndex=tmp++;
+            tab.style.zIndex=tmp;
+            aMain[index].style.height=0+'px';
+            startMove(aMain[index],'height',400);
+        }
+
+        function auto(){
+            index++;
+            if(index==aTab.length){
+                index=0;
+            }
+            changeTo(index);
+        }
+
+        timer=setInterval(auto,2000);
+
+        demo.onmouseover=function(){
+            clearInterval(timer);
+        }
+        demo.onmouseout= function () {
+            timer=setInterval(auto,2000);
+        }
+
+
+
+        function startMove ( obj, attr, target, endFn ) {
+            clearInterval( obj.timer );
+            obj.timer = setInterval(function () {
+                //取值
+                var iCur=0;
+                if(attr=='opacity'){
+                    iCur=parseInt(100*parseFloat(getStyle( obj, attr )));
+                }
+                else{
+                    iCur=parseInt(getStyle( obj, attr ));
+                }
+                //计算速度
+                var iSpeed = (target-iCur)/8;			// 速度
+                iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+                //判断停止
+                if ( iCur == target ) {
+                    clearInterval( obj.timer );
+                    // if ( endFn ) {endFn();}
+                    endFn && endFn();
+                }
+                else{
+
+                    if(attr=='opacity'){
+                        obj.style.filter ='alpha(opacity:'+(iCur+iSpeed)+')';
+                        obj.style.opacity=(iCur+iSpeed)/100;
+                    }
+                    else{
+                        obj.style[attr] = iCur+iSpeed + 'px';
+                    }
+                }
+            }, 30);
+        }
+        //getStyle方法封装
+        function getStyle ( obj, attr ) { return obj.currentStyle?obj.currentStyle[attr] : getComputedStyle( obj )[attr]; }
+
+    }
+</script>
 </body>
 </html>

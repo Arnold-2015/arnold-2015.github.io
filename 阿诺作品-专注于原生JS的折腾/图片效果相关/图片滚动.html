@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片滚动</title>
+    <link href="../reset.css" rel="stylesheet"/>
+    <script src="../myFunctions.js" rel="javascript"></script>
+    <style>
+        #demo{width: 600px;height:300px;margin:100px auto;position:relative;overflow: hidden;}
+        #main{width:6000px;height:300px;position: absolute;left:0;top:0;}
+        .main-pic{width:600px;height:300px;float:left;}
+        #switch-bar{width: 100px;height:20px;position:absolute;left:250px;bottom:10px;}
+        .switch-item{width:10px;height: 10px;float: left;margin:5px 5px;-webkit-border-radius:5px;-moz-border-radius: 5px;border-radius:5px;background: #3c3c3c;}
+        .active{background: #d58512;}
+        #prev{width:50px;height:50px;line-height:45px;background: #3c3c3c;color:#fff;position:absolute;left:0;top:125px;font-size: 40px;font-weight:bold;text-align: center;opacity:0.7}
+        #next{width:50px;height:50px;line-height:45px;background: #3c3c3c;color:#fff;position:absolute;right:0;top:125px;font-size: 40px;font-weight:bold;text-align: center;opacity:0.7}
+
+    </style>
+</head>
+<body>
+<div id="demo" >
+    <div id="main">
+        <img class="main-pic" src="../imgs/01.jpg"/>
+        <img class="main-pic" src="../imgs/02.jpg"/>
+        <img class="main-pic" src="../imgs/03.jpg"/>
+        <img class="main-pic" src="../imgs/04.jpg"/>
+        <img class="main-pic" src="../imgs/05.jpg"/>
+    </div>
+    <div id="switch-bar">
+        <a class="switch-item active"></a>
+        <a class="switch-item"></a>
+        <a class="switch-item"></a>
+        <a class="switch-item"></a>
+        <a class="switch-item"></a>
+    </div>
+    <a id="prev" href="javascript:;"> < </a>
+    <a id="next" href="javascript:;"> > </a>
+</div>
+
+<script rel="javascript">
+    window.onload=function(){
+        var demo=document.getElementById('demo');
+        var main=document.getElementById('main');
+        var aPic=main.getElementsByTagName('img');
+        var switchBar=document.getElementById('switch-bar');
+        var aSwitch=switchBar.getElementsByTagName('a');
+        var prev=document.getElementById('prev');
+        var next=document.getElementById('next');
+        main.innerHTML+=main.innerHTML;
+        var len=aPic.length;
+        var l=len/2;
+        var width=aPic[0].offsetWidth;
+        var index=0;
+
+
+        //上一张
+        function goPrev(){
+            if(index==0){
+                index=l-1;
+                main.style.left=-l*width+'px';
+            }else{
+                index--;
+            }
+            for(var i= 0;i<l;i++){
+                aSwitch[i].className='switch-item';
+                aSwitch[index].className+=' active';
+            }
+            startMove(main,'left',-index*width);
+        }
+        prev.onclick=goPrev;
+        //下一张
+        function goNext(){
+            if(index==len-1){
+                index=l;
+                main.style.left=-(l-1)*width+'px';
+            }else{
+                index++;
+            }
+            for(var i= 0;i<l;i++){
+                aSwitch[i].className='switch-item';
+                aSwitch[index%l].className+=' active';
+            }
+            startMove(main,'left',-index*width);
+        }
+        next.onclick=goNext;
+
+         //自动播放
+        timer=setInterval(goNext,2000);
+        demo.onmouseover=function(){
+            clearInterval(timer);
+        }
+        demo.onmouseout=function(){
+            timer=setInterval(goNext,2000);
+        }
+
+        for(var i=0;i<l;i++){
+            aSwitch[i].index=i;
+            aSwitch[i].onmouseover=function(){
+                index=this.index;
+                for(var j=0;j<l;j++){
+                    aSwitch[j].className='switch-item';
+                }
+                aSwitch[index%l].className+=' active';
+                startMove(main,'left',-index*width);
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
