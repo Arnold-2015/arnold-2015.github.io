@@ -24,7 +24,7 @@ function prepareForMobile(){
         cellSideLength = 100;
     }
 
-    $('#grid-container').css('width',gridContainerWidth - 2*cellSpace);
+    $("#grid-container").css('width',gridContainerWidth - 2*cellSpace);
     $('#grid-container').css('height',gridContainerWidth - 2*cellSpace);
     $('#grid-container').css('padding', cellSpace);
     $('#grid-container').css('border-radius',0.02*gridContainerWidth);
