@@ -17,7 +17,7 @@ h2 {font-size:46px; font-weight:normal;}
 #logo{display: inline-block;}
 
 /* block-intro */
-#block-intro {height:auto; width:100%; background-color:#1889C5; padding:60px 0 100px;}
+#block-intro {height:auto; width:100%; background-color:#245269; padding:60px 0 100px;}
 #intro-icon  {height:300px; width:1140px; margin:0 auto;}
 #intro-icon a {line-height: 200px}
 .link        {display:inline-block; height:100px; width:100px; text-indent: -9999em;-webkit-transition:0.4s linear;transition:0.4s ease-in;}
@@ -33,7 +33,7 @@ h2 {font-size:46px; font-weight:normal;}
 #intro-text>div>p {margin-bottom:26px;}
 
 /* block-skill */
-#block-skill {height:628px; width:100%; background-color:#9C58B6; color:#FFFFFF; padding-bottom:160px; }
+#block-skill {height:628px; width:100%; background-color:#2b542c; color:#FFFFFF; padding-bottom:160px; }
 #block-skill .skill-title {width:300px; margin:0 auto; padding-top:100px; text-align:center;}
 #block-skill .skills {height:auto; width:1100px;margin: 0 auto;}
 #block-skill ul {display:inline-block; height:auto; width:210px; margin:80px 0 0 120px; border:2px solid #FFFFFF; font-size:20px; font-family:"Microsoft YaHei light"; text-align: center; vertical-align: top;}
