@@ -56,13 +56,21 @@ h2 {font-size:46px; font-weight:normal;}
 #block-workEXP .workbox .work-do {margin-top:10px; font-size:16px;}
 
 /* block-prjEXP */
-#block-prjEXP {padding:50px 0 200px; width:100%; background-color:#129DE7; color:#FFFFFF;}
-#block-prjEXP .prjEXP-title {width:300px; margin:30px auto; text-align:center;padding:100px 0; }
-#block-prjEXP .prjs {height:auto; width:100%; margin-top:100px; overflow:hidden;}
-#block-prjEXP .prj {float:left; height:auto; width:240px; margin-left:105px;}
-#block-prjEXP .prj .prj-logo {display:block; margin:0 auto; height:180px; width:180px; border-radius:50%;}
-#block-prjEXP .prj .prj-title {height:auto; width:240px; margin:20px 0; font-size:26px; text-align:center;}
-#block-prjEXP .prj .prj-intro {height:auto; width:240px; font-size:20px; text-indent:1em}
+#block-prjEXP {padding: 0 ; width:100%; background-color:#5c5d5e; color:#FFFFFF;}
+#block-prjEXP .prjEXP-title {width:300px; margin:0 auto; text-align:center;padding:100px 0; }
+
+.list{ padding:5px  60px;border:3px solid #fff;width:300px;margin:0 auto 200px;font-size: 20px;}
+.list li{list-style:decimal; line-height:50px;padding-left: 30px}
+.list li h1{font-size:22px; font-style:normal; font-family:"Hiragino Sans GB","Hiragino Sans GB W3";}
+.list li a{ display:block; padding:5px 8px;transition:all 0.6s;}
+.list li a:hover{text-indent:25px; color: #fff;text-shadow:0 2px 1px #360;background-color: #42474B;*background-color:#fff;text-decoration:none;}
+.list li h1 a:hover{ color: #fff;text-shadow:0 2px 1px #360;background-color: #42474B;*background-color:#fff;text-decoration:none;}
+.sub-dl{ display:none;}
+.sub-dl a{ margin-left:25px;}
+.sub-dl a:hover{}
+.welcome{ text-align:center; padding:30px 0;}
+
+
 
 
 /* block-wantMore */
