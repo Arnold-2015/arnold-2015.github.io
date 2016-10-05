@@ -5,13 +5,14 @@
     <title>下拉图片轮播</title>
     <link href="../reset.css" rel="stylesheet"/>
     <style>
-        #demo{width:600px;height:400px;margin:100px auto;position:relative;}
+        #demo{width:600px;height:400px;margin:100px auto 0;position:relative;}
         #main{width:600px;height:400px;position:relative;}
         .main-item{display:block;width:600px;height:400px;position:absolute;left:0;top:0;z-index: 0;overflow: hidden;}
         .main-item img{width:600px;height:400px;}
         #tab{width: 600px;height:40px;position:absolute;left:0;bottom: 0;z-index:1;}
         .tab-item{width:145px;height:40px;float:left;margin:0 0 0 4px;background:#3c3c3c;filter:alpha(opacity:60);opacity:0.6;}
         .tab-active{background: #ff0000;}
+        #copyRight{width: 100px;height: 30px;font-size:20px;font-weight:bold;color:#3b3b3b;margin:10px auto;text-decoration:none}
     </style>
 </head>
 <body>
@@ -29,6 +30,8 @@
         <li class="tab-item "></li>
     </ul>
 </div>
+<a id="copyRight" href="http://arnold-2015.github.io">阿诺作品</a>
+
 <script type="text/javascript">
     window.onload=function(){
         var demo=document.getElementById('demo'),
