@@ -30,18 +30,10 @@ h2 {font-size:46px; font-weight:normal;}
 #intro-text ul li a:hover {border-bottom:2px solid white;}
 #intro-text ul li span {display:inline-block; text-align:right; width:70px;}
 #intro-text div {display:inline-block; width:550px; margin-left:120px;}
-#intro-text>div>p {margin-bottom:26px;}
+#intro-text>div>p {margin-bottom:26px;line-height: 26px}
 
-/* block-skill */
-#block-skill {height:628px; width:100%; background-color:#2b542c; color:#FFFFFF; padding-bottom:160px; }
-#block-skill .skill-title {width:300px; margin:0 auto; padding-top:100px; text-align:center;}
-#block-skill .skills {height:auto; width:1100px;margin: 0 auto;}
-#block-skill ul {display:inline-block; height:auto; width:210px; margin:80px 0 0 120px; border:2px solid #FFFFFF; font-size:20px; font-family:"Microsoft YaHei light"; text-align: center; vertical-align: top;}
-#block-skill li {height:36px; line-height:36px;}
-#block-skill li:first-child {background-color:#FFFFFF; color:#333;}
-#block-skill li:hover{background-color:#FFFFFF; color:#333; cursor:default;}
 /* block-workEXP */
-#block-workEXP {height:628px; width:100%; background-color:#26B1B6; color:#e7e7e7;padding:160px 0}
+#block-workEXP {height:auto; width:100%; background-color:#26B1B6; color:#e7e7e7;padding:160px 0}
 #block-workEXP .work-title {width:300px; margin:0 auto; text-align:center;}
 #block-workEXP .workEXP-main {height:auto; width:auto; margin:100px 0 0 60px;}
 #block-workEXP .timebox {width:650px;margin: 0 auto; font-size:29px;}
@@ -56,9 +48,8 @@ h2 {font-size:46px; font-weight:normal;}
 #block-workEXP .workbox .work-do {margin-top:10px; font-size:16px;}
 
 /* block-prjEXP */
-#block-prjEXP {padding: 0 ; width:100%; background-color:#5c5d5e; color:#FFFFFF;}
+#block-prjEXP {height:auto; width:100%; background-color:#5c5d5e; color:#FFFFFF;}
 #block-prjEXP .prjEXP-title {width:300px; margin:0 auto; text-align:center;padding:100px 0; }
-
 .list{ padding:5px  60px;border:3px solid #fff;width:280px;margin:0 auto 200px;font-size: 20px;}
 .list li{list-style:decimal; line-height:50px;padding-left: 30px}
 .list li h1{font-size:22px; font-style:normal; font-family:"Hiragino Sans GB","Hiragino Sans GB W3";}
