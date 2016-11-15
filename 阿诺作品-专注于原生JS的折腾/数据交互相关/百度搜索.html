@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度</title>
+    <style>
+        ul,li,input,form{margin:0;padding:0;}
+        img{width: 200px;height:100px}
+        li{text-decoration: none;list-style: none;width: 506px;height: 26px;line-height: 26px;}
+        li:hover{background: #D5D5D6}
+        #logo{width: 200px;height:100px;margin:100px auto 0;}
+        #baidu{width: 600px;height:40px;position:relative;margin:20px  auto; }
+        #q{width: 506px;height: 36px;line-height: 36px;font-size: 22px}
+        #submit{width: 90px;height: 40px;position: absolute;left: 510px;background: #1369c0;color:#fff;border:none;}
+        #ul{display:none;position:absolute;left:0;top:40px;border: 1px solid #D5D5D6}
+
+    </style>
+</head>
+<body>
+<div id="logo"><img src="https://www.baidu.com/img/bd_logo1.png" /></div>
+<form name="search" id="baidu" action="http://www.baidu.com">
+    <input type="text" id="q" name="search"/>
+    <input type="submit" id="submit" value="百度一下" name="search" >
+    <ul id="ul">
+    </ul>
+</form>
+
+<script>
+    function arnold(data){
+        var oUl=document.getElementById('ul');
+        var html='';
+     if(data.s.length){
+         oUl.style.display='block';
+         for(var i=0;i<data.s.length;i++){
+             html+='<li href="">'+data.s[i]+'</li>';
+         }
+         oUl.innerHTML=html;
+
+     }else{
+         oUl.style.display='none';
+     }
+    }
+    window.onload=function(){
+        var oQ=document.getElementById('q');
+        var oUl=document.getElementById('ul');
+
+
+        oQ.onkeyup=function(){
+            if(this.value!=''){
+               var oScript=document.createElement('script');
+                oScript.src='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+this.value+'&cb=arnold';
+                document.body.appendChild(oScript);
+            }else{
+                oUl.style.display='none';
+            }
+        }
+    }
+</script>
+</body>
+</html>
