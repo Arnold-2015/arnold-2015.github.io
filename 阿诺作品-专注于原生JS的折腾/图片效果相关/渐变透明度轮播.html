@@ -34,7 +34,7 @@
 </div>
 <a id="copyRight" href="http://arnold-2015.github.io">阿诺作品</a>
 <script type="text/javascript">
-    window.onload=function(){
+    (function(){
         var demo=document.getElementById('demo'),
                 main=document.getElementById('main'),
                 aMain=main.getElementsByTagName('li'),
@@ -95,7 +95,7 @@
         //getStyle方法封装
         function getStyle ( obj, attr ) { return obj.currentStyle?obj.currentStyle[attr] : getComputedStyle( obj )[attr]; }
 
-    }
+    })()
 </script>
 </body>
 </html>

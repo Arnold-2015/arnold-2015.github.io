@@ -26,7 +26,7 @@
 <a id="copyRight" href="http://arnold-2015.github.io">阿诺作品</a>
 
 <script rel="javascript">
-window.onload=function(){
+    (function(){
     var demo=document.getElementById('demo');
     var main=document.getElementById('main');
     var aPic=main.getElementsByTagName('img');
@@ -46,7 +46,7 @@ window.onload=function(){
     demo.onmouseout=function(){
         timer=setInterval(auto,30);
     }
-}
+})()
 </script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 </div>
 
 <script>
-    window.onload=function(){
+    (function(){
         var oImg=document.getElementsByTagName('img')[0];
         oImg.onmouseover=function(){
             startMove(this,'opacity',100);
@@ -20,7 +20,7 @@
         oImg.onmouseout=function(){
             startMove(this,'opacity',40);
         }
-    }
+    })()
 </script>
 </body>
 </html>

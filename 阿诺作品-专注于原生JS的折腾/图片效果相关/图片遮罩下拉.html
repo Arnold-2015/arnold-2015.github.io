@@ -66,7 +66,7 @@
 </div>
 </div>
 <script rel="javascript">
-    window.onload=function(){
+    (function(){
     var aLayer=getByClass('layer');
         var aItem=getByClass('item');
     for(var i=0;i<aLayer.length;i++) {
@@ -78,7 +78,7 @@
             startMove(aLayer[this.index],'height',0)
     }
         }
-    }
+    })()
 </script>
 </body>
 </html>
