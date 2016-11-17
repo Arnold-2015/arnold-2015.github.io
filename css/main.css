@@ -18,11 +18,11 @@ h2 {font-size:46px; font-weight:normal;}
 
 /* block-intro */
 #block-intro {height:auto; width:100%; background-color:#245269; padding:60px 0 100px;}
-#intro-icon  {height:300px; width:1140px; margin:0 auto;}
+#intro-icon  {height:300px; width:300px; margin:0 auto;border-radius: 300px;overflow: hidden}
 #intro-icon a {line-height: 200px}
 .link        {display:inline-block; height:100px; width:100px; text-indent: -9999em;-webkit-transition:0.4s linear;transition:0.4s ease-in;}
 .link:hover  {-webkit-transform:rotate(360deg);transform:rotate(360deg);}
-#myPhoto     {height:250px; width:250px; display:block; margin:0 auto;}
+#myPhoto     {height:300px; width:300px; display:block; margin:0 auto;}
 #slog        {width:480px;height:30px;line-height:30px;margin:30px auto;font-size:20px;color:#fff;}
 #intro-text    {display:block; margin:80px auto; color:white;width: 1000px}
 #intro-text li {height:30px;}
