@@ -48,7 +48,7 @@ h2 {font-size:46px; font-weight:normal;}
 #block-workEXP .workbox .work-do {margin-top:10px; font-size:16px;}
 
 /* block-prjEXP */
-#block-prjEXP {height:auto; width:100%; background-color:#5c5d5e; color:#FFFFFF;}
+#block-prjEXP {min-height:100%; width:100%; background-color:#5c5d5e; color:#FFFFFF;}
 #block-prjEXP .prjEXP-title {width:300px; margin:0 auto; text-align:center;padding:100px 0; }
 .list{ padding:5px  60px;border:3px solid #fff;width:280px;margin:0 auto 200px;font-size: 20px;}
 .list li{list-style:decimal; line-height:50px;padding-left: 30px}
