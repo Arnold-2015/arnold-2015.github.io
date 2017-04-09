@@ -17,7 +17,7 @@ $(function(){
 
 $(window).resize(function(){
 
-    $("#block-prjEXP").css("height", $(window).height());
+    $("#block-prjEXP").css("min-height", $(window).height());
     var str = '',
         data = [
             [
