@@ -1,0 +1,723 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/bone.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript 的语法大量借鉴了 C 及其他类 C 语言（如 Java 和 Perl）的语法。因此，熟悉这些语言的开发人员在接受 JavaScript 更加宽松的语法时，一定会有种轻松自在的感觉。本章主要按照 ECMAScript 3 介绍这门语言的基本概念，并就 ECMAScript 5 的变化给出说明。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS溯源之语法">
+<meta property="og:url" content="http://www.wedog.cn/2016/04/14/JS溯源之语法/index.html">
+<meta property="og:site_name" content="未到">
+<meta property="og:description" content="JavaScript 的语法大量借鉴了 C 及其他类 C 语言（如 Java 和 Perl）的语法。因此，熟悉这些语言的开发人员在接受 JavaScript 更加宽松的语法时，一定会有种轻松自在的感觉。本章主要按照 ECMAScript 3 介绍这门语言的基本概念，并就 ECMAScript 5 的变化给出说明。">
+<meta property="og:updated_time" content="2017-05-04T14:31:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS溯源之语法">
+<meta name="twitter:description" content="JavaScript 的语法大量借鉴了 C 及其他类 C 语言（如 Java 和 Perl）的语法。因此，熟悉这些语言的开发人员在接受 JavaScript 更加宽松的语法时，一定会有种轻松自在的感觉。本章主要按照 ECMAScript 3 介绍这门语言的基本概念，并就 ECMAScript 5 的变化给出说明。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.wedog.cn/2016/04/14/JS溯源之语法/"/>
+
+
+
+
+
+  <title>JS溯源之语法 | 未到</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未到</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">折腾青春，愉悦梦想</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/04/14/JS溯源之语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小柯同志">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Arnold.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未到">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS溯源之语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-14T00:00:00+08:00">
+                2016-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS溯源/" itemprop="url" rel="index">
+                    <span itemprop="name">JS溯源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JavaScript 的语法大量借鉴了 C 及其他类 C 语言（如 Java 和 Perl）的语法。因此，熟悉这些语言的开发人员在接受 JavaScript 更加宽松的语法时，一定会有种轻松自在的感觉。本章主要按照 ECMAScript 3 介绍这门语言的基本概念，并就 ECMAScript 5 的变化给出说明。<br><a id="more"></a></p>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>JavaScript 程序是用 Unicode 字符集编写的，Unicode 是 ASCII 和 Latin-1 的超集，并支持地球上几乎所有在用的语言。ECMAScript 3 要求 JavaScript 的实现必须支持 Unicode 2.1及后续版本，ECMAScript 5 则要求支持 Unicode 3及后续版本。</p>
+<h2 id="区分大小写"><a href="#区分大小写" class="headerlink" title="区分大小写"></a>区分大小写</h2><p>JavaScript 是区分大小写的。也就是说，关键字、变量、函数名和所有的标识符（identifier）都必须采取一致的大小写形式。比如，关键字 while 必须写成 while，而不能写成 While 或者 WHILE。同样，online、Online、OnLine、ONLINE 是4个不同的变量名。</p>
+<p>但需要注意的是，HTML 并不区分大小写。由于它和客户端 JavaScript 联系紧密，因此这点区别很容易混淆。许多客户端 JavaScript 对象和属性与他们所表示的 HTML 标签和属性名相同。在 HTML 中，这些标签和属性名可以使用大写也可以是小写，而在 JavaScript 中则必须是小写。例如，在 HTML 中设置事件处理程序时，onclick 属性可以写成 onClick，但在 JavaScript 代码中，必须使用小写的 onclick。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>JavaScript 使用 C 风格的注释，包括单行注释和块级注释。单行注释以两个斜杠 // 开头，块级注释以一个斜杠和一个星号 /<em> 开头，以一个星号和一个斜杠 </em>/ 结尾。下面都是合法的 JavaScript 注释：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 这里是单行注释</div><div class="line">/*</div><div class="line"> * 这里是块级注释</div><div class="line"> * 也叫多行注释</div><div class="line"> */</div></pre></td></tr></table></figure></p>
+<p>虽然上面注释中的第二和第三行都以一个星号开头，但这不是必须的，纯粹是为了提高注释的可读性（这种格式在企业级应用中极其常见）。</p>
+<h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><p>所谓字面量（也可称直接量，Literal values），就是程序中直接使用的数据值。字面量只代表自身，不存储在特定位置。JavaScript 中的字面量有：字符串、数字、布尔值、对象、数组、函数、正则表达式，以及特殊的 null 值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="string">"hello world"</span>   // 字符串</div><div class="line">123             // 数字</div><div class="line">1.2             // 小数</div><div class="line"><span class="literal">true</span>            // 布尔值</div><div class="line"><span class="literal">false</span>           // 布尔值</div><div class="line">/javascript/gi  // 正则表达式</div><div class="line">null            // 空</div><div class="line">&#123; name: <span class="string">'stone'</span>, age: 20&#125;       // 对象</div><div class="line">[ 1, 2, 3, 4, 5, 6, 7, 8 ]      // 数组</div><div class="line"><span class="function"><span class="title">function</span></span>()&#123; console.log(<span class="string">'good'</span>); &#125;    // 函数</div></pre></td></tr></table></figure></p>
+<p>扩展阅读「undefined不是字面量」<br><a href="http://www.cnblogs.com/ziyunfei/archive/2012/11/11/2765096.html" target="_blank" rel="external">http://www.cnblogs.com/ziyunfei/archive/2012/11/11/2765096.html</a></p>
+<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><p>在 ECMAScript 5 引入了严格模式（strict mode）的概念。严格模式是为 JavaScript 定义了一种不同的解析与执行模式。在严格模式下，ECMAScript 3 中的一些不确定的行为将得到处理，而且对某些不安全的操作也会抛出错误。要在整个脚本中启用严格模式，可以在顶部添加如下代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"use strict"</span>;</div></pre></td></tr></table></figure>
+<p>这行代码看起来像是字符串，而且也没有赋值给任何变量，但其实它是一个编译指示（pragma），用于告诉支持的 JavaScript 引擎切换到严格模式。这是为了不破坏 ECMAScript 3 语法而特意选定的语法。</p>
+<p>在函数内部的第一行包含这条编译指示，也可以指定函数在严格模式下执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">doSomething</span></span>()&#123;</div><div class="line">    <span class="string">"use strict"</span>; </div><div class="line">    // 函数体</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>严格模式下，JavaScript 的执行结果会有很大不同，因此本课程会随时指出严格模式下的区别。</p>
+<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>所谓标识符，就是指变量、函数、属性的名字，或者函数的参数。JavaScript 标识符必须以字母、下划线（_）或美元符号（$）开始，后续的字符可以是字母、数字、下划线或美元符号（数字是不允许作为首字符出现的）。下面是合法的标识符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">my_variable_name, v12345, _dummy, <span class="variable">$str888</span></div></pre></td></tr></table></figure>
+<p>标识符中的字母可以包含扩展的 ASCII 或 Unicode 字母字符（如 π 和 ∑），但不推荐这样做。按照惯例，JavaScript 标识符采用驼峰大小写格式，也就是第一个字母小写，剩下的每个有意义的单词的首字母大写，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">firstSecond, myCar, <span class="keyword">do</span>SomethingImportant</div></pre></td></tr></table></figure>
+<h2 id="关键字和保留字"><a href="#关键字和保留字" class="headerlink" title="关键字和保留字"></a>关键字和保留字</h2><p>ECMAScript 3 描述了一组具有特定用途的关键字，这些关键字可用于表示控制语句的开始或结束，或者用于执行特定操作等。按照规则，关键字是语言保留的，不能用作标识符。以下是 ECMAScript 3 的全部关键字：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">break</span>       delete      <span class="keyword">function</span>    <span class="built_in">return</span>      typeof</div><div class="line"><span class="keyword">case</span>        <span class="keyword">do</span>          <span class="keyword">if</span>          switch      var</div><div class="line">catch       <span class="keyword">else</span>        <span class="keyword">in</span>          this        void</div><div class="line"><span class="built_in">continue</span>    <span class="literal">false</span>       instanceof  throw       <span class="keyword">while</span></div><div class="line">debugger    finally     new         <span class="literal">true</span>        with</div><div class="line">default     <span class="keyword">for</span>         null        try</div></pre></td></tr></table></figure>
+<p>ECMAScript 3 还将 Java 的所有关键字都作为自己的保留字。尽管保留字还没有任何特定的用途，但他们有可能在将来被用作关键字：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">abstract    double      goto        native      static</div><div class="line">boolean     enum        implements  package     super</div><div class="line">byte        <span class="built_in">export</span>      import      private     synchronized</div><div class="line">char        extends     int         protected   throws</div><div class="line">class       final       interface   public      transient</div><div class="line">const       <span class="built_in">float</span>       long        short       volatile</div></pre></td></tr></table></figure>
+<p>ECMAScript 5 把非严格模式下的保留字缩减为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class           enum            extends         super</div><div class="line">const           <span class="built_in">export</span>          import</div></pre></td></tr></table></figure>
+<p>ECMAScript 5 在严格模式下的保留字为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">implements      package         public</div><div class="line">interface       private         static</div><div class="line"><span class="built_in">let</span>             protected       yield</div></pre></td></tr></table></figure>
+<p>注意，let 和 yield 是 ECMAScript 5 新增的保留字，其他保留字都是 ECMAScript 3 定义的。为了保证兼容性，任何时候都不建议使用 ECMAScript 5 新增的保留字 let 和 yield 。</p>
+<p>ECMAScript 还预定义了很多全局变量和函数，也应当避免把它们用作标识符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">arguments           Error           Math            RegExp</div><div class="line">Array               <span class="built_in">eval</span>            NaN             String</div><div class="line">Boolean             EvalError       Number          SyntaxError</div><div class="line">Date                Function        Object          TypeError</div><div class="line">decodeURI           Infinity        parseFloat      undefined</div><div class="line">decodeURIComponent  isFinite        parseInt        URIError</div><div class="line">encodeURI           isNaN           RangeError</div><div class="line">encodeURIComponent  JSON            ReferenceError</div></pre></td></tr></table></figure>
+<p>JavaScript 的具体实现可能定义独有的全局变量和函数，每一种特定的 JavaScript 运行环境都有自己的一个全局属性列表，这一点是需要牢记的。</p>
+<h2 id="可选的分号"><a href="#可选的分号" class="headerlink" title="可选的分号"></a>可选的分号</h2><p>和其他许多变成语言一样，JavaScript 使用分号（;）将语句分隔开。这对增强代码的可读性和整洁性是非常重要的。缺少分隔符，一条语句的结束就成了下一条语句的开始，反之亦然。如果语句各自独占一行，通常可以省略语句之间的分号（程序结尾或花括号 } 之前的分号也可以省略）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var sum = a + b     // 即使没有分号也是有效的语句，不好的写法</div><div class="line">var diff = a - b;   // 有效的语句，好的写法</div></pre></td></tr></table></figure>
+<p>虽然语句结尾的分号不是必须的，但请任何时候都不要省略它。因为加上这个分号可以避免很多错误，开发人员也可以放心地通过删除多余的空格来压缩 JavaScript 代码。另外，加上分号也会在某些情况下增进代码的性能，因为这样解析解就不必再花时间推测应该在哪插入分号了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/08/JS溯源之初识/" rel="next" title="JS溯源之初识">
+                <i class="fa fa-chevron-left"></i> JS溯源之初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/23/JS溯源之变量和数据类型/" rel="prev" title="JS溯源之变量和数据类型">
+                JS溯源之变量和数据类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Arnold.jpg"
+               alt="小柯同志" />
+          <p class="site-author-name" itemprop="name">小柯同志</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">1.</span> <span class="nav-text">字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区分大小写"><span class="nav-number">2.</span> <span class="nav-text">区分大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">3.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字面量"><span class="nav-number">4.</span> <span class="nav-text">字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#严格模式"><span class="nav-number">5.</span> <span class="nav-text">严格模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符"><span class="nav-number">6.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键字和保留字"><span class="nav-number">7.</span> <span class="nav-text">关键字和保留字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选的分号"><span class="nav-number">8.</span> <span class="nav-text">可选的分号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小柯同志</span>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

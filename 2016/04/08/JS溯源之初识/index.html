@@ -1,0 +1,734 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/bone.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript 是面向 Web 的编程语言，绝大多数现代网站都使用了 JavaScript，并且所有的现代 Web 浏览器（电脑，手机，平板）均包含了 JavaScript 解释器。 这使得 JavaScript 能够称得上史上使用最广泛的编程语言。 JavaScript 也是前端开发工程师必须掌握的三种技能之一：描述网页内容的 HTML、描述网页样式的 CSS、以及描述网页行为的 Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS溯源之初识">
+<meta property="og:url" content="http://www.wedog.cn/2016/04/08/JS溯源之初识/index.html">
+<meta property="og:site_name" content="未到">
+<meta property="og:description" content="JavaScript 是面向 Web 的编程语言，绝大多数现代网站都使用了 JavaScript，并且所有的现代 Web 浏览器（电脑，手机，平板）均包含了 JavaScript 解释器。 这使得 JavaScript 能够称得上史上使用最广泛的编程语言。 JavaScript 也是前端开发工程师必须掌握的三种技能之一：描述网页内容的 HTML、描述网页样式的 CSS、以及描述网页行为的 Java">
+<meta property="og:updated_time" content="2017-05-04T14:12:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS溯源之初识">
+<meta name="twitter:description" content="JavaScript 是面向 Web 的编程语言，绝大多数现代网站都使用了 JavaScript，并且所有的现代 Web 浏览器（电脑，手机，平板）均包含了 JavaScript 解释器。 这使得 JavaScript 能够称得上史上使用最广泛的编程语言。 JavaScript 也是前端开发工程师必须掌握的三种技能之一：描述网页内容的 HTML、描述网页样式的 CSS、以及描述网页行为的 Java">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.wedog.cn/2016/04/08/JS溯源之初识/"/>
+
+
+
+
+
+  <title>JS溯源之初识 | 未到</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未到</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">折腾青春，愉悦梦想</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/04/08/JS溯源之初识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小柯同志">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Arnold.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未到">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS溯源之初识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-08T00:00:00+08:00">
+                2016-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS溯源/" itemprop="url" rel="index">
+                    <span itemprop="name">JS溯源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JavaScript 是面向 Web 的编程语言，绝大多数现代网站都使用了 JavaScript，并且所有的现代 Web 浏览器（电脑，手机，平板）均包含了 JavaScript 解释器。 这使得 JavaScript 能够称得上史上使用最广泛的编程语言。 JavaScript 也是前端开发工程师必须掌握的三种技能之一：描述网页内容的 HTML、描述网页样式的 CSS、以及描述网页行为的 JavaScript。<br><a id="more"></a><br>JavaScript 是一门 动态的、弱类型的、面向对象的、解释型的 编程语言，非常适合面向对象和函数式的编程风格。JavaScript 的语法来自于 Java，它的一等函数（first-class function）来自于 Scheme，它的基于原型（prototype-based）的继承来自于 Self。但学习本课程不必去了解那些（Java/Scheme/Slef）语言或熟悉那些术语。</p>
+<h2 id="JavaScript-实现"><a href="#JavaScript-实现" class="headerlink" title="JavaScript 实现"></a>JavaScript 实现</h2><p>1997年，欧洲计算机制造商协会（ECMA，European Computer Manufactures Association）定义了名为ECMAScript（发音为 ek-ma-script）的脚本语言标准，它是通用的，与平台无关的语言标准。自此以后，浏览器开发商开始致力于将 ECMAScript 作为各自 JavaScript 实现的基础。虽然基础相同，但具体实现在不同浏览器上却略有差异。</p>
+<p>JavaScript 和 ECMAScript 通常被人们用来表达相同的含义，但 JavaScript 的含义却比 ECMAScript 中规定的要多得多。一个完整的 JavaScript 实现应该由下面三个不同的部分组成。</p>
+<ul>
+<li>核心（ECMAScript）</li>
+<li>文档对象模型（DOM）</li>
+<li>浏览器对象模型（BOM</li>
+</ul>
+<h3 id="核心（ECMAScript）"><a href="#核心（ECMAScript）" class="headerlink" title="核心（ECMAScript）"></a>核心（ECMAScript）</h3><p>ECMAScript 标准由 语法、数据类型、语句、关键字、保留字、运算符、对象 组成。它与 Web 浏览器没有任何依赖关系，并且这门语言本身并不包含输入和输出定义。ECMAScript 定义的只是这门语言的基础，而在此基础之上可以构建更完善的脚本语言。</p>
+<p>Web 浏览器只是 ECMAScript 实现的宿主环境之一，其他宿主环境包括 Node 和 Adobe Flash。宿主环境不仅提供基本的 ECMAScript 实现，同时也会提供该语言的扩展（例如：DOM、BOM），这些扩展则利用 ECMAScript 的核心类型和语法提供更多更具体的功能。</p>
+<p>JavaScript 是 Web 浏览器对 ECMAScript 标准的实现，ActionScript 是 Adobe Flash 对 ECMAScript 标准的实现。</p>
+<h3 id="文档对象模型（DOM）"><a href="#文档对象模型（DOM）" class="headerlink" title="文档对象模型（DOM）"></a>文档对象模型（DOM）</h3><p>文档对象模型（DOM，Document Object Model）是用于 HTML 的应用程序编程接口（API），它把整个页面映射为一个多层节点结构。HTML 页面中的每个组成部分都是某种类型的节点，这些节点又包含着不同类型的数据。看下面这个 HTML 页面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">        &lt;title&gt;Sample Page&lt;/title&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">        &lt;p&gt;Hello World!&lt;/p&gt;</div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>通过 DOM 创建的这个表示文档的树形图，开发人员获得了控制页面内容和结构的主动权。借助 DOM 提供的 API，开发人员可以轻松自如地删除、添加、替换或修改任何节点。</p>
+<p>由于 Netscape 和 微软实现的 DOM 互不兼容，负责制定 Web 通信标准的 W3C（World Wide Web Consortium，万维网联盟）开始着手规划 DOM。</p>
+<h4 id="DOM-1级："><a href="#DOM-1级：" class="headerlink" title="DOM 1级："></a>DOM 1级：</h4><ul>
+<li>DOM 核心：映射文档结构，简化对文档中任意部分的操作和访问。</li>
+<li><p>DOM HTML：在 DOM 核心的基础上，添加了针对 HTML 的对象和方法。</p>
+<h4 id="DOM-2级："><a href="#DOM-2级：" class="headerlink" title="DOM 2级："></a>DOM 2级：</h4></li>
+<li><p>DOM 视图：定义了跟踪不同文档视图的接口。</p>
+</li>
+<li>DOM 事件：定义了事件和事件处理的接口。</li>
+<li>DOM 样式：定义了基于 CSS 为元素应用样式的接口。</li>
+<li><p>DOM 遍历和范围：定义了遍历和操作文档树的接口。</p>
+<h4 id="DOM-3级："><a href="#DOM-3级：" class="headerlink" title="DOM 3级："></a>DOM 3级：</h4></li>
+<li><p>DOM 加载和保存：引入了以统一方式加载和保存文档的方法。</p>
+</li>
+<li>DOM 验证：新增了验证文档的方法。</li>
+<li>DOM 核心扩展。</li>
+</ul>
+<h3 id="浏览器对象模型（BOM）"><a href="#浏览器对象模型（BOM）" class="headerlink" title="浏览器对象模型（BOM）"></a>浏览器对象模型（BOM）</h3><p>浏览器对象模型（BOM，Browser Object Model）是用于浏览器的应用程序编程接口（API），它把整个浏览器窗口映射为一个对象。从根本上讲，BOM 只处理浏览器窗口和框架，但人们习惯上也把所有针对浏览器的 JavaScript 扩展算作 BOM 的一部分，例如：</p>
+<ul>
+<li>弹出新浏览器窗口的功能。</li>
+<li>移动、缩放和关闭浏览器窗口的功能。</li>
+<li>提供浏览器详细信息的 navigator 对象。</li>
+<li>提供浏览器所加载页面的详细信息的 localtion 对象。</li>
+<li>提供用户显示器分辨率详细信息的 screen 对象。</li>
+<li>对 cookies 的支持。</li>
+<li>XMLHttpRequest 和 IE 的 ActiveXObject 这样的自定义对象。<br>BOM 最让人头疼的是没有相关的规范和标准，每个浏览器都有独有的实现，这个问题在 HTML5 中得到了解决，HTML5 致力于把很多 BOM 功能写入正式规范。</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>JavaScript 是一种专为网页交互而设计的脚本语言，由下列3个不同的部分组成：</p>
+<ul>
+<li>核心（ECMAScript），由 ECMA-262 定义，提供核心语言功能。</li>
+<li>文档对象模型（DOM），提供访问和操作网页内容的方法和接口。</li>
+<li><p>浏览器对象模型（BOM），提供与浏览器交互的方法和接口。</p>
+<p>JavaScript 的这3个组成部分，在当前5个主要浏览器（IE、FireFox、Chrome、Safari 和 Opera）中都得到了不同程度的支持。其中，所有浏览器对 ECMAScript 3 版本的支持大体上都还不错，而对 ECMAScript 5 的支持程度越来越高，但对 DOM 的支持则彼此相差比较多。对于已经正式纳入 HTML5 标准的 BOM 来说，尽管各浏览器都实现了某些众所周知的共同特性，但其他特性还是会因浏览器而异。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/14/JS溯源之语法/" rel="prev" title="JS溯源之语法">
+                JS溯源之语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Arnold.jpg"
+               alt="小柯同志" />
+          <p class="site-author-name" itemprop="name">小柯同志</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-实现"><span class="nav-number">1.</span> <span class="nav-text">JavaScript 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心（ECMAScript）"><span class="nav-number">1.1.</span> <span class="nav-text">核心（ECMAScript）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档对象模型（DOM）"><span class="nav-number">1.2.</span> <span class="nav-text">文档对象模型（DOM）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM-1级："><span class="nav-number">1.2.1.</span> <span class="nav-text">DOM 1级：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM-2级："><span class="nav-number">1.2.2.</span> <span class="nav-text">DOM 2级：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM-3级："><span class="nav-number">1.2.3.</span> <span class="nav-text">DOM 3级：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器对象模型（BOM）"><span class="nav-number">1.3.</span> <span class="nav-text">浏览器对象模型（BOM）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小柯同志</span>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
