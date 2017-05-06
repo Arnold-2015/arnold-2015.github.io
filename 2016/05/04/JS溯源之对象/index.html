@@ -1,0 +1,768 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/bone.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="对象是 JavaScript 的数据类型。它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值，因此我们可以把它看成是从字符串到值的映射。对象是动态的，可以随时新增和删除自有属性。对象除了可以保持自有的属性，还可以从一个称为原型的对象继承属性，这种「原型式继承（prototypal inheritance）」是 JavaScript 的核心特征。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS溯源之对象">
+<meta property="og:url" content="http://www.wedog.cn/2016/05/04/JS溯源之对象/index.html">
+<meta property="og:site_name" content="未到">
+<meta property="og:description" content="对象是 JavaScript 的数据类型。它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值，因此我们可以把它看成是从字符串到值的映射。对象是动态的，可以随时新增和删除自有属性。对象除了可以保持自有的属性，还可以从一个称为原型的对象继承属性，这种「原型式继承（prototypal inheritance）」是 JavaScript 的核心特征。">
+<meta property="og:updated_time" content="2017-05-05T14:41:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS溯源之对象">
+<meta name="twitter:description" content="对象是 JavaScript 的数据类型。它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值，因此我们可以把它看成是从字符串到值的映射。对象是动态的，可以随时新增和删除自有属性。对象除了可以保持自有的属性，还可以从一个称为原型的对象继承属性，这种「原型式继承（prototypal inheritance）」是 JavaScript 的核心特征。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.wedog.cn/2016/05/04/JS溯源之对象/"/>
+
+
+
+
+
+  <title>JS溯源之对象 | 未到</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未到</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">折腾青春，愉悦梦想</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/05/04/JS溯源之对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小柯同志">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Arnold.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未到">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS溯源之对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T00:00:00+08:00">
+                2016-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS溯源/" itemprop="url" rel="index">
+                    <span itemprop="name">JS溯源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对象是 JavaScript 的数据类型。它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值，因此我们可以把它看成是从字符串到值的映射。对象是动态的，可以随时新增和删除自有属性。对象除了可以保持自有的属性，还可以从一个称为原型的对象继承属性，这种「原型式继承（prototypal inheritance）」是 JavaScript 的核心特征。<br><a id="more"></a></p>
+<p>对象最常见的用法是创建（create）、设置（set）、查找（query）、删除（delete）、检测（test）和枚举（enumerate）它的属性。</p>
+<p>属性包括名字和值。属性名可以是包含空字符串在内的任意字符串，但对象中不能存在两个同名的属性。值可以是任意 JavaScript 值，或者在 ECMAScript 5中可以是 getter 或 setter 函数。</p>
+<p>除了名字和值之外，每个属性还有一些与之相关的值，称为「属性特性（property attribute）」：</p>
+<ul>
+<li>可写（writable attribute），表明是否可以设置该属性的值。</li>
+<li>可枚举（enumerable attribute），表明是否可以通过 for-in 循环返回该属性。</li>
+<li>可配置（configurable attribute），表明是否可以删除或修改该属性。</li>
+</ul>
+<p>在 ECMAScript 5之前，通过代码给对象创建的所有属性都是可写的、可枚举的和可配置的。在 ECMAScript 5中则可以对这些特性加以配置。</p>
+<p>除了包含属性特性之外，每个对象还拥有三个相关的「对象特性（object attribute）」：</p>
+<ul>
+<li>对象的类（class），是一个标识对象类型的字符串。</li>
+<li>对象的原型（prototype），指向另外一个对象，本对象的属性继承自它的原型对象。</li>
+<li>对象的扩展标记（extensible flag），指明了在 ECMAScript 5中是否可以向该对象添加新属性。</li>
+</ul>
+<p>最后，用下面术语来对 JavaScript 的「三类对象」和「两类属性」进行区分：</p>
+<ul>
+<li>内置对象（native object），是由 JavaScript 规范定义的对象或类。例如，数组、函数、日期和正则表达式都是内置对象。</li>
+<li>宿主对象（host object），是由 JavaScript 解释器所嵌入的宿主环境（比如 Web 浏览器）定义的。客户端 JavaScript 中表示网页结构的 HTMLElement 对象均是宿主对象。</li>
+<li>自定义对象（user-defined object），是由运行中的 JavaScript 代码创建的对象。</li>
+<li>自有属性（own property），是直接在对象中定义的属性。</li>
+<li>继承属性（inherited property），是在对象的原型对象中定义的属性。</li>
+</ul>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p>可以使用对象字面量、new 关键字和 ECMAScript 5中的 Object.create() 函数来创建对象。</p>
+<h3 id="使用对象字面量创建对象（推荐）"><a href="#使用对象字面量创建对象（推荐）" class="headerlink" title="使用对象字面量创建对象（推荐）"></a>使用对象字面量创建对象（推荐）</h3><p>创建对象最简单的方式就是在 JavaScript 代码中使用对象字面量。对象字面量是由若干名值对组成的映射表，名值对中间用冒号分隔，名值对之间用逗号分隔，整个映射表用花括号括起来。属性名可以是 JavaScript 标识符也可以是字符串直接量（包括空字符串）。属性的值可以是任意类型的 JavaScript 表达式，表达式的值（可以是原始值也可以是对象值）就是这个属性的值。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 推荐写法</div><div class="line">var person = &#123;</div><div class="line">    name : &quot;stone&quot;,</div><div class="line">    age : 28</div><div class="line">&#125;;</div><div class="line">// 也可以写成</div><div class="line">var person = &#123;&#125;;</div><div class="line">person.name = &quot;stone&quot;;</div><div class="line">person.age = 28;</div></pre></td></tr></table></figure>
+<h3 id="使用-new-关键字创建对象"><a href="#使用-new-关键字创建对象" class="headerlink" title="使用 new 关键字创建对象"></a>使用 new 关键字创建对象</h3><p>new 关键字创建并初始化一个新对象。关键字 new 后跟随一个函数调用。这里的函数称做构造函数（constructor），构造函数用以初始化一个新创建的对象。JavaScript 语言核心中的原始类型都包含内置构造函数。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &quot;stone&quot;;</div><div class="line">person.age = 28;</div></pre></td></tr></table></figure>
+<p>其中 var person = new Object(); 等价于 var person = {}; 。</p>
+<h3 id="使用-Object-create-函数创建对象"><a href="#使用-Object-create-函数创建对象" class="headerlink" title="使用 Object.create() 函数创建对象"></a>使用 Object.create() 函数创建对象</h3><p>ECMAScript 5定义了一个名为 Object.create() 的方法，它创建一个新对象，其中第一个参数是这个对象的原型。Object.create() 提供第二个可选参数，用以对对象的属性进行进一步描述。Object.create() 是一个静态函数，而不是提供给某个对象调用的方法。使用它的方法很简单，只须传入所需的原型对象即可。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = Object.create(Object.prototype);</div><div class="line">person.name = &quot;stone&quot;;</div><div class="line">person.age = 28;</div></pre></td></tr></table></figure>
+<p>其中 var person = Object.create(Object.prototype); 也等价于 var person = {}; 。</p>
+<h3 id="原型（prototype）"><a href="#原型（prototype）" class="headerlink" title="原型（prototype）"></a>原型（prototype）</h3><p>所有通过对象字面量创建的对象都具有同一个原型对象，并可以通过 JavaScript 代码 Object.prototype 获得对原型对象的引用。通过关键字 new 和构造函数调用创建的对象的原型就是构造函数的 prototype 属性的值。因此，同使用 {} 创建对象一样，通过 new Object() 创建的对象也继承自 Object.prototype。同样，通过 new Array() 创建的对象的原型就是 Array.prototype，通过 new Date() 创建的对象的原型就是 Date.prototype。</p>
+<p>没有原型的对象为数不多，Object.prototype 就是其中之一。它不继承任何属性。其他原型对象都是普通对象，普通对象都具有原型。所有的内置构造函数（以及大部分自定义的构造函数）都具有一个继承自 Object.prototype 的原型。例如，Date.prototype 的属性继承自 Object.prototype，因此由 new Date() 创建的 Date 对象的属性同时继承自 Date.prototype 和 Object.prototype。</p>
+<p>这一系列链接的原型对象就是所谓的「原型链（prototype chain）」。</p>
+<h2 id="属性的查询和设置"><a href="#属性的查询和设置" class="headerlink" title="属性的查询和设置"></a>属性的查询和设置</h2><p>前面有提到过，可以通过点 . 或方括号 [] 运算符来获取属性的值。对于点 . 来说，左侧应当是一个对象，右侧必须是一个以属性名称命名的简单标识符。对于方括号来说 [] ，方括号内必须是一个计算结果为字符串的表达式，这个字符串就是属性的名称。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 推荐写法</div><div class="line">console.log(person.name);   // &quot;stone&quot;</div><div class="line">console.log(person.age);    // &quot;28&quot;</div><div class="line">// 也可以写成</div><div class="line">console.log(person[&quot;name&quot;]);    // stone</div><div class="line">console.log(person[&quot;age&quot;]);     // 28</div></pre></td></tr></table></figure>
+<p>和获取属性的值写法一样，通过点和方括号也可以创建属性或给属性赋值，但需要将它们放在赋值表达式的左侧。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 推荐写法</div><div class="line">person.name = &quot;sophie&quot;; // 赋值</div><div class="line">person.age = 30;        // 赋值</div><div class="line">person.weight = 38;     // 创建</div><div class="line">// 也可以写成</div><div class="line">person[&quot;name&quot;] = &quot;sophie&quot;;  // 赋值</div><div class="line">person[&quot;age&quot;] = 30;         // 赋值</div><div class="line">person[&quot;weight&quot;] = 38;      // 创建</div></pre></td></tr></table></figure>
+<p>当使用方括号时，方括号内的表达式必须返回字符串。更严格地讲，表达式必须返回字符串或返回一个可以转换为字符串的值。</p>
+<h2 id="属性的访问错误"><a href="#属性的访问错误" class="headerlink" title="属性的访问错误"></a>属性的访问错误</h2><p>查询一个不存在的属性并不会报错，如果在对象 o 自身的属性或继承的属性中均未找到属性 x，属性访问表达式 o.x 返回 undefined。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;;</div><div class="line">person.wife;    // undefined</div></pre></td></tr></table></figure>
+<p>但是，如果对象不存在，那么试图查询这个不存在的对象的属性就会报错。null 和 undefined 值都没有属性，因此查询这些值的属性会报错。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;;</div><div class="line">person.wife.name;   // Uncaught TypeError: Cannot read property &apos;name&apos; of undefined.</div></pre></td></tr></table></figure>
+<p>除非确定 person 和 person.wife 都是对象，否则不能这样写表达式 person.wife.name，因为会报「未捕获的错误类型」，下面提供了两种避免出错的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 冗余但易懂的写法</div><div class="line">var name;</div><div class="line">if (person) &#123;</div><div class="line">    if (person.wife) </div><div class="line">        name = person.wife.name;</div><div class="line">&#125;</div><div class="line">// 简练又常用的写法（推荐写法）</div><div class="line">var name = person &amp;&amp; person.wife &amp;&amp; person.wife.name;</div></pre></td></tr></table></figure>
+<h2 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h2><p>delete 运算符用来删除对象属性，事实上 delete 只是断开属性和宿主对象的联系，并没有真正的删除它。delete 运算符只能删除自有属性，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上删除它，而且这会影响到所有继承自这个原型的对象）。</p>
+<p>代码范例，请参见「变量和数据类型」-「数据类型」-「delete 运算符」。</p>
+<h2 id="检测属性"><a href="#检测属性" class="headerlink" title="检测属性"></a>检测属性</h2><p>JavaScript 对象可以看做属性的集合，我们经常会检测集合中成员的所属关系（判断某个属性是否存在于某个对象中）。可以通过 in 运算符、hasOwnPreperty() 和 propertyIsEnumerable() 来完成这个工作，甚至仅通过属性查询也可以做到这一点。</p>
+<p>in 运算符的左侧是属性名（字符串），右侧是对象。如果对象的自有属性或继承属性中包含这个属性则返回 true。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var o = &#123; x: 1 &#125;</div><div class="line">console.log(&quot;x&quot; in o);          // true，x是o的属性</div><div class="line">console.log(&quot;y&quot; in o);          // false，y不是o的属性</div><div class="line">console.log(&quot;toString&quot; in o);   // true，toString是继承属性</div></pre></td></tr></table></figure>
+<p>对象的 hasOwnProperty() 方法用来检测给定的名字是否是对象的自有属性。对于继承属性它将返回 false。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var o = &#123; x: 1 &#125;</div><div class="line">console.log(o.hasOwnProperty(&quot;x&quot;));          // true，x是o的自有属性</div><div class="line">console.log(o.hasOwnProperty(&quot;y&quot;));          // false，y不是o的属性</div><div class="line">console.log(o.hasOwnProperty(&quot;toString&quot;));   // false，toString是继承属性</div></pre></td></tr></table></figure>
+<p>propertyIsEnumerable() 是 hasOwnProperty() 的增强版，只有检测到是自有属性且这个属性的可枚举性（enumerable attribute）为 true 时它才返回 true。某些内置属性是不可枚举的。通常由 JavaScript 代码创建的属性都是可枚举的，除非在 ECMAScript 5中使用一个特殊的方法来改变属性的可枚举性。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var o = inherit(&#123; y: 2 &#125;);</div><div class="line">o.x = 1;</div><div class="line">o.propertyIsEnumerable(&quot;x&quot;);    // true:，x是o的自有属性，可枚举</div><div class="line">o.propertyIsEnumerable(&quot;y&quot;);    // false，y是继承属性</div><div class="line">Object.prototype.propertyIsEnumerable(&quot;toString&quot;);  // false，不可枚举</div></pre></td></tr></table></figure>
+<p>除了使用 in 运算符之外，另一种更简便的方法是使用 !== 判断一个属性是否是 undefined。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var o = &#123; x: 1 &#125;</div><div class="line">console.log(o.x !== undefined);              // true，x是o的属性</div><div class="line">console.log(o.y !== undefined);              // false，y不是o的属性</div><div class="line">console.log(o.toString !== undefined);       // true，toString是继承属性</div></pre></td></tr></table></figure>
+<p>然而有一种场景只能使用 in 运算符而不能使用上述属性访问的方式。in 可以区分不存在的属性和存在但值为 undefined 的属性。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var o = &#123; x: undefined &#125;        // 属性被显式赋值为undefined</div><div class="line">console.log(o.x !== undefined); // false，属性存在，但值为undefined</div><div class="line">console.log(o.y !== undefined); // false，属性不存在</div><div class="line">console.log(&quot;x&quot; in o);          // true，属性存在</div><div class="line">console.log(&quot;y&quot; in o);          // false，属性不存在</div><div class="line">console.log(delete o.x);        // true，删除了属性x</div><div class="line">console.log(&quot;x&quot; in o);          // false，属性不再存在</div></pre></td></tr></table></figure>
+<p>扩展阅读「JavaScript 检测原始值、引用值、属性」<br><a href="http://shijiajie.com/2016/06/20/javascript-maintainable-javascript-validate1/" target="_blank" rel="external">http://shijiajie.com/2016/06/20/javascript-maintainable-javascript-validate1/</a></p>
+<p>扩展阅读「JavaScript 检测之 basevalidate.js」<br><a href="http://shijiajie.com/2016/06/25/javascript-maintainable-javascript-basevalidatejs/" target="_blank" rel="external">http://shijiajie.com/2016/06/25/javascript-maintainable-javascript-basevalidatejs/</a></p>
+<h2 id="枚举属性"><a href="#枚举属性" class="headerlink" title="枚举属性"></a>枚举属性</h2><p>除了检测对象的属性是否存在，我们还会经常遍历对象的属性。通常使用 for-in 循环遍历，ECMAScript 5提供了两个更好用的替代方案。</p>
+<p>for-in 循环可以在循环体中遍历对象中所有可枚举的属性（包括自有属性和继承的属性），把属性名称赋值给循环变量。对象继承的内置方法不可枚举的，但在代码中给对象添加的属性都是可枚举的。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var o = &#123;x:1, y:2, z:3&#125;;            // 三个可枚举的自有属性</div><div class="line">o.propertyIsEnumerable(&quot;toString&quot;); // false，不可枚举</div><div class="line">for (p in o) &#123;          // 遍历属性</div><div class="line">    console.log(p);     // 输出x、y和z，不会输出toString</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有许多实用工具库给 Object.prototype 添加了新的方法或属性，这些方法和属性可以被所有对象继承并使用。然而在ECMAScript 5标准之前，这些新添加的方法是不能定义为不可枚举的，因此它们都可以在 for-in 循环中枚举出来。为了避免这种情况，需要过滤 for-in 循环返回的属性，下面两种方式是最常见的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for(p in o) &#123;</div><div class="line">   if (!o.hasOwnProperty(p)) continue;          // 跳过继承的属性</div><div class="line">   if (typeof o[p] === &quot;function&quot;) continue;    // 跳过方法</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>除了 for-in 循环之外，ECMAScript 5定义了两个用以枚举属性名称的函数。第一个是 Object.keys()，它返回一个数组，这个数组由对象中可枚举的自有属性的名称组成。第二个是 Object.getOwnPropertyNames()，它和 Ojbect.keys() 类似，只是它返回对象的所有自有属性的名称，而不仅仅是可枚举的属性。在ECMAScript 3中是无法实现的类似的函数的，因为ECMAScript 3中没有提供任何方法来获取对象不可枚举的属性。</p>
+<p>属性的 getter 和 setter</p>
+<p>我们知道，对象属性是由名字、值和一组特性（attribute）构成的。在ECMAScript 5中，属性值可以用一个或两个方法替代，这两个方法就是 getter 和 setter。由 getter 和 setter 定义的属性称做「存取器属性（accessor property）」，它不同于「数据属性（data property）」，数据属性只有一个简单的值。</p>
+<p>当程序查询存取器属性的值时，JavaScript 调用 getter 方法。这个方法的返回值就是属性存取表达式的值。当程序设置一个存取器属性的值时，JavaScript 调用 setter 方法，将赋值表达式右侧的值当做参数传入 setter。从某种意义上讲，这个方法负责「设置」属性值。可以忽略 setter 方法的返回值。</p>
+<p>和数据属性不同，存取器属性不具有可写性（writable attribute）。如果属性同时具有 getter 和 setter 方法，那么它是一个读/写属性。如果它只有 getter 方法，那么它是一个只读属性。如果它只有 setter 方法，那么它是一个只写属性，读取只写属性总是返回 undefined。定义存取器属性最简单的方法是使用对象直接量语法的一种扩展写法。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var o = &#123;</div><div class="line">    // 普通的数据属性</div><div class="line">    data_prop: value,</div><div class="line">    // 存取器属性都是成对定义的函数</div><div class="line">    get accessor_prop() &#123; /*这里是函数体 */ &#125;,</div><div class="line">    set accessor_prop(value) &#123; /* 这里是函数体*/ &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>存取器属性定义为一个或两个和属性同名的函数，这个函数定义没有使用 function 关键字，而是使用 get 或 set。注意，这里没有使用冒号将属性名和函数体分隔开，但在函数体的结束和下一个方法或数据属性之间有逗号分隔。</p>
+<h2 id="序列化对象（JSON）"><a href="#序列化对象（JSON）" class="headerlink" title="序列化对象（JSON）"></a>序列化对象（JSON）</h2><p>对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。ECMAScript 5提供了内置函数 JSON.stringify() 和 JSON.parse() 用来序列化和还原 JavaScript 对象。这些方法都使用 JSON 作为数据交换格式，JSON 的全称是「JavaScript 对象表示法（JavaScript Object Notation）」，它的语法和 JavaScript 对象与数组直接量的语法非常相近。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">o = &#123;x:1, y:&#123;z:[false,null,&quot;&quot;]&#125;&#125;;       // 定义一个对象</div><div class="line">s = JSON.stringify(o);                  // s是 &apos;&#123;&quot;x&quot;:1,&quot;y&quot;:&#123;&quot;z&quot;:[false,null,&quot;&quot;]&#125;&#125;&apos;</div><div class="line">p = JSON.parse(s);                      // p是o的深拷贝</div></pre></td></tr></table></figure>
+<p>ECMAScript 5中的这些函数的本地实现和 <a href="https://github.com/douglascrockford/JSON-js" target="_blank" rel="external">https://github.com/douglascrockford/JSON-js</a> 中的公共域ECMAScript 3版本的实现非常类似，或者说完全一样，因此可以通过引入 json2.js 模块在ECMAScript 3的环境中使用ECMAScript 5中的这些函数。</p>
+<p>JSON 的语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值。它支持对象、数组、字符串、无穷大数字、true、false 和 null，可以序列化和还原它们。NaN、Infinity 和 -Infinity 序列化的结果是 null，日期对象序列化的结果是 ISO 格式的日期字符串（参照 Date.toJSON() 函数），但 JSON.parse() 依然保留它们的字符串形态，而不会将它们还原为原始日期对象。函数、RegExp、Error 对象和 undefined 值不能序列化和还原。JSON.stringify() 只能序列化对象可枚举的自有属性。对于一个不能序列化的属性来说，在序列化后的输出字符串中会将这个属性省略掉。JSON.stringify() 和 JSON.parse() 都可以接收第二个可选参数，通过传入需要序列化或还原的属性列表来定制自定义的序列化或还原操作。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/28/JS溯源之语句/" rel="next" title="JS溯源之语句">
+                <i class="fa fa-chevron-left"></i> JS溯源之语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/22/JS溯源之数组/" rel="prev" title="JS溯源之数组">
+                JS溯源之数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Arnold.jpg"
+               alt="小柯同志" />
+          <p class="site-author-name" itemprop="name">小柯同志</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建对象"><span class="nav-number">1.</span> <span class="nav-text">创建对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用对象字面量创建对象（推荐）"><span class="nav-number">1.1.</span> <span class="nav-text">使用对象字面量创建对象（推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-new-关键字创建对象"><span class="nav-number">1.2.</span> <span class="nav-text">使用 new 关键字创建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Object-create-函数创建对象"><span class="nav-number">1.3.</span> <span class="nav-text">使用 Object.create() 函数创建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型（prototype）"><span class="nav-number">1.4.</span> <span class="nav-text">原型（prototype）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性的查询和设置"><span class="nav-number">2.</span> <span class="nav-text">属性的查询和设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性的访问错误"><span class="nav-number">3.</span> <span class="nav-text">属性的访问错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除属性"><span class="nav-number">4.</span> <span class="nav-text">删除属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测属性"><span class="nav-number">5.</span> <span class="nav-text">检测属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举属性"><span class="nav-number">6.</span> <span class="nav-text">枚举属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化对象（JSON）"><span class="nav-number">7.</span> <span class="nav-text">序列化对象（JSON）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小柯同志</span>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

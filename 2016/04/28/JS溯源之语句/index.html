@@ -1,0 +1,884 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/bone.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="表达式在 JavaScript 中是短语，那么语句就是整句命令。表达式用来计算出一个值，语句用来执行以使某件事发生。从本质上看，语句定义了 JavaScript 中的主要语法，语句通常使用一或多个关键字来完成给定任务。语句可以很简单，例如通知函数退出；也可以比较复杂，例如指定重复执行某个命令的次数。下表列出了 JavaScript 大部分语句的语法和用途：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS溯源之语句">
+<meta property="og:url" content="http://www.wedog.cn/2016/04/28/JS溯源之语句/index.html">
+<meta property="og:site_name" content="未到">
+<meta property="og:description" content="表达式在 JavaScript 中是短语，那么语句就是整句命令。表达式用来计算出一个值，语句用来执行以使某件事发生。从本质上看，语句定义了 JavaScript 中的主要语法，语句通常使用一或多个关键字来完成给定任务。语句可以很简单，例如通知函数退出；也可以比较复杂，例如指定重复执行某个命令的次数。下表列出了 JavaScript 大部分语句的语法和用途：">
+<meta property="og:updated_time" content="2017-05-05T14:15:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS溯源之语句">
+<meta name="twitter:description" content="表达式在 JavaScript 中是短语，那么语句就是整句命令。表达式用来计算出一个值，语句用来执行以使某件事发生。从本质上看，语句定义了 JavaScript 中的主要语法，语句通常使用一或多个关键字来完成给定任务。语句可以很简单，例如通知函数退出；也可以比较复杂，例如指定重复执行某个命令的次数。下表列出了 JavaScript 大部分语句的语法和用途：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.wedog.cn/2016/04/28/JS溯源之语句/"/>
+
+
+
+
+
+  <title>JS溯源之语句 | 未到</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未到</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">折腾青春，愉悦梦想</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/04/28/JS溯源之语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小柯同志">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Arnold.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未到">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS溯源之语句</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-28T00:00:00+08:00">
+                2016-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS溯源/" itemprop="url" rel="index">
+                    <span itemprop="name">JS溯源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>表达式在 JavaScript 中是短语，那么语句就是整句命令。表达式用来计算出一个值，语句用来执行以使某件事发生。从本质上看，语句定义了 JavaScript 中的主要语法，语句通常使用一或多个关键字来完成给定任务。语句可以很简单，例如通知函数退出；也可以比较复杂，例如指定重复执行某个命令的次数。下表列出了 JavaScript 大部分语句的语法和用途：<br><a id="more"></a></p>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>语法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>break</td>
+<td>break [label];</td>
+<td>退出最内层循环或者退出 switch 语句，又或者退出 label 指定的语句</td>
+</tr>
+<tr>
+<td>case</td>
+<td>case expression:</td>
+<td>在 switch 语句中标记一条语句</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>continue [label];</td>
+<td>重新开始最内层的循环或重新开始 label 指定的循环</td>
+</tr>
+<tr>
+<td>debugger</td>
+<td>debugger;</td>
+<td>断点器调试</td>
+</tr>
+<tr>
+<td>default</td>
+<td>default;</td>
+<td>在 switch 中标记默认的语句</td>
+</tr>
+<tr>
+<td>do-while</td>
+<td>do statement while(expression);</td>
+<td>while 循环的一种替代形式</td>
+</tr>
+<tr>
+<td>empty</td>
+<td>;</td>
+<td>什么都不做</td>
+</tr>
+<tr>
+<td>for</td>
+<td>for(init;expr;incr) statement</td>
+<td>简写的循环结构</td>
+</tr>
+<tr>
+<td>for-in</td>
+<td>for(var in object) statement</td>
+<td>遍历一个对象的属性</td>
+</tr>
+<tr>
+<td>function</td>
+<td>function name([param[],…]){statement}</td>
+<td>声明一个函数</td>
+</tr>
+<tr>
+<td>if-else</td>
+<td>if (expression) statement1[else statement2]</td>
+<td>执行 statement1 或者 statement2</td>
+</tr>
+<tr>
+<td>label</td>
+<td>label:statement</td>
+<td>给 statement 指定一个名字 label</td>
+</tr>
+<tr>
+<td>return</td>
+<td>return [expression];</td>
+<td>从函数返回一个值</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>switch(expression){statement}</td>
+<td>用 case 或者 default 语句标记的多分支语句</td>
+</tr>
+<tr>
+<td>throw</td>
+<td>throw expression;</td>
+<td>抛出异常</td>
+</tr>
+<tr>
+<td>try</td>
+<td>try {statement}[catch {handler statement}] finally {cleaup statement}]</td>
+<td>捕获异常</td>
+</tr>
+<tr>
+<td>use strict</td>
+<td>“use strict”</td>
+<td>对脚本和函数应用严格模式</td>
+</tr>
+<tr>
+<td>var</td>
+<td>var name=[=expr][,…];</td>
+<td>声明并初始化一个或多个变量</td>
+</tr>
+<tr>
+<td>while</td>
+<td>while(expression) statement</td>
+<td>基本的循环结构</td>
+</tr>
+<tr>
+<td>with</td>
+<td>with(object) statement</td>
+<td>扩展作用域链</td>
+</tr>
+</tbody>
+</table>
+<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><h3 id="if-else-语句"><a href="#if-else-语句" class="headerlink" title="if-else 语句"></a>if-else 语句</h3><p>大多数编程语言中最为常用的一个语句就是 if-else 语句。以下是 if-else 语句的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (condition) statement1 [else statement2]</div></pre></td></tr></table></figure>
+<p>其中的 condition 可以是任意表达式；而且对这个表达式求值的结果不一定是布尔值。JavaScript 会自动调用 Boolean() 转换函数将这个表达式的结果转换为一个布尔值。如果对 condition 求值的结果是 true，则执行 statement1，如果对 condition 求值的结果是 false，则执行 statement2。而且这两个语句既可以是一行代码，也可以是一个代码块（以一对花括号括起来的多行代码）。请看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (i &gt; 25)</div><div class="line">    console.log(&quot;Greater than 25.&quot;);              // 单行语句</div><div class="line">else &#123;</div><div class="line">    console.log(&quot;Less than or equal to 25.&quot;);     // 代码块中的语句</div><div class="line">&#125;</div><div class="line">`</div></pre></td></tr></table></figure>
+<p>业界普遍推崇的最佳实践是始终使用代码块，即使要执行的只有一行代码。因为这样可以消除人们的误解，否则可能让人分不清在不同条件下要执行哪些语句。</p>
+<h3 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h3><p>switch 语句与 if 语句的关系最为密切，而且也是在其他语言中普遍使用的一种流控制语句。JavaScript 中 switch 语句的语法与其他基于 C 的语言非常接近，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">switch (expression) &#123;</div><div class="line">  case value: statement</div><div class="line">    break;</div><div class="line">  case value: statement</div><div class="line">    break;</div><div class="line">  case value: statement</div><div class="line">    break;</div><div class="line">  case value: statement</div><div class="line">    break;</div><div class="line">  default: statement</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>switch 语句中的每一种情形的含义是：“如果表达式等于这个值（value），则执行后面的语句（statement）”。而 break 关键字会导致代码执行流跳出 switch 语句。如果省略 break 关键字，就会导致执行完当前 case 后，继续执行下一个 case。最后的 default 关键字则用于在表达式不匹配前面任何一种情形的时候，也相当于一个 else 语句。从根本上讲，switch 语句就是为了让开发人员免于编写像下面这样的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if (i === 25)&#123;</div><div class="line">  console.log(&quot;25&quot;);</div><div class="line">&#125; else if (i === 35) &#123;</div><div class="line">  console.log(&quot;35&quot;);</div><div class="line">&#125; else if (i === 45) &#123;</div><div class="line">  console.log(&quot;45&quot;);</div><div class="line">&#125; else &#123;</div><div class="line">  console.log(&quot;Other&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而与此等价的switch语句如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">switch (i) &#123;</div><div class="line">    case 25: </div><div class="line">        console.log(&quot;25&quot;);</div><div class="line">        break;</div><div class="line">    case 35: </div><div class="line">        console.log(&quot;35&quot;);</div><div class="line">        break;</div><div class="line">    case 45: </div><div class="line">        console.log(&quot;45&quot;);</div><div class="line">        break;</div><div class="line">    default: </div><div class="line">        console.log(&quot;Other&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过为每个case后面都添加一个break语句，就可以避免同时执行多个case代码的情况。假如确实需要混合几种情形，不要忘了在代码中添加注释，说明你是有意省略了break关键字。</p>
+<p>虽然 JavaScript 中的 switch 语句借鉴自其他语言，但这个语句也有自己的特色。首先，可以在 switch 语句中使用任何数据类型（在很多其他语言中只能使用数值），无论是字符串，还是对象都没有问题。其次，每个 case 的值不一定是常量，可以是变量，甚至是表达式。请看下面这两个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">switch (&quot;hello world&quot;) &#123;</div><div class="line">    case &quot;hello&quot; + &quot; world&quot;: </div><div class="line">        console.log(&quot;Greeting was found.&quot;);</div><div class="line">        break;</div><div class="line">    case &quot;goodbye&quot;: </div><div class="line">        console.log(&quot;Closing was found.&quot;);</div><div class="line">        break;</div><div class="line">    default: </div><div class="line">        console.log(&quot;Unexpected message was found.&quot;);</div><div class="line">&#125;</div><div class="line">var num = 25;</div><div class="line">switch (true) &#123;</div><div class="line">    case num &lt; 0: </div><div class="line">        console.log(&quot;Less than 0.&quot;);</div><div class="line">        break;</div><div class="line">    case num &gt;= 0 &amp;&amp; num &lt;= 10: </div><div class="line">        console.log(&quot;Between 0 and 10.&quot;);</div><div class="line">        break;</div><div class="line">    case num &gt; 10 &amp;&amp; num &lt;= 20: </div><div class="line">        console.log(&quot;Between 10 and 20.&quot;);</div><div class="line">        break;</div><div class="line">    default: </div><div class="line">        console.log(&quot;More than 20.&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>switch 语句首先计算 switch 关键字后的表达式，然后按照从上到下的顺序计算每个 case 后的表达式，直到执行到 case 的表达式的值与 switch 的表达式的值相等时为止。由于对每个 case 的匹配操作实际上是 === 恒等运算符比较，而不是 == 相等运算符比较，因此，表达式和 case 的匹配并不会做任何类型转换。</p>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="while-语句"><a href="#while-语句" class="headerlink" title="while 语句"></a>while 语句</h3><p>while 语句属于前测试循环语句，也就是说，在循环体内的代码被执行之前，就会对出口条件求值。因引，循环体内的代码有可能永远不会被执行。以下是 while 语句的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">while(expression) statement</div></pre></td></tr></table></figure>
+<p>下面是一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var i = 0;</div><div class="line">while (i &lt; 10) &#123;</div><div class="line">    i += 2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="do-while-语句"><a href="#do-while-语句" class="headerlink" title="do-while 语句"></a>do-while 语句</h3><p>do-while 语句是一种后测试循环语句，即只有在循环体中的代码执行之后，才会测试出口条件。换句话说，在对条件表达式求值之前，循环体内的代码至少会被执行一次。以下是 do-while 语句的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">do &#123;</div><div class="line">    statement</div><div class="line">&#125; while (expression);</div></pre></td></tr></table></figure>
+<p>下面是一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var i = 0;</div><div class="line">do &#123;</div><div class="line">   i += 2;</div><div class="line">&#125; while (i &lt; 10);</div></pre></td></tr></table></figure>
+<h3 id="for-语句"><a href="#for-语句" class="headerlink" title="for 语句"></a>for 语句</h3><p>for 语句也是一种前测试循环语句，但它具有在执行循环之前初始化变量和定义循环后要执行的代码的能力。以下是 for 语句的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">for (initialization; expression; post-loop-expression) statement</div></pre></td></tr></table></figure>
+<p>下面是一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var count = 10;</div><div class="line">for (var i = 0; i &lt; count; i++)&#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个 for 循环语句与下面的 while 语句的功能相同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var count = 10;</div><div class="line">var i = 0;</div><div class="line">while (i &lt; count)&#123;</div><div class="line">    console.log(i);</div><div class="line">    i++;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于 JavaScript 中不存在块级作用域，因此在循环内部定义的变量也可以在外部访问到。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var count = 10;</div><div class="line">for (var i = 0; i &lt; count; i++)&#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;</div><div class="line">console.log(i); // 10</div></pre></td></tr></table></figure>
+<p>此外，for 语句中的初始化表达式、控制表达式和循环后表达式都是可选的。将这两个表达式全部省略，就会创建一个无限循环，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 无限循环</div><div class="line">for (;;) &#123;</div><div class="line">    doSomething();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="for-in-语句"><a href="#for-in-语句" class="headerlink" title="for-in 语句"></a>for-in 语句</h3><p>for-in 语句是一种精准的迭代语句，可以用来枚举对象的属性。以下是 for-in 语句的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">for (property in object) statement</div></pre></td></tr></table></figure>
+<p>下面是一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for (var propName in window) &#123;</div><div class="line">    console.log(propName);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用 for-in 循环来显示了 BOM 中 window 对象的所有属性。每次执行循环时，都会将 window 对象中存在的一个属性名赋值给变量 propName。这个过程会一直持续到对象中的所有属性都被枚举一遍为止。与 for 语句类似，这里控制语句中的 var 操作符也不是必需的。但是，为了保证使用局部变量，我们推荐上面例子中的这种做法。</p>
+<p>JavaScript 对象的属性没有顺序。因此，通过 for-in 循环输出的属性名的顺序是不可预测的。具体来讲，所有属性都会被返回一次，但返回的先后次序可能会因浏览器而异。</p>
+<p>如果表示要迭代的对象的变量值为 null 或 undefined，for-in 语句会抛出错误。虽然 ECMAScript 5更正了这一行为；对这种情况不再抛出错误，而只是不执行循环体。为了保证最大限度的兼容性，建议在使用 for-in 循环之前，先检测确认该对象的值不是 null 或 undefined。</p>
+<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><h3 id="label-语句"><a href="#label-语句" class="headerlink" title="label 语句"></a>label 语句</h3><p>使用 label 语句可以在代码中添加标签，以便将来使用。以下是 label 语句的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label: statement</div></pre></td></tr></table></figure>
+<p>下面是一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">start: for (var i=0; i &lt; count; i++) &#123;</div><div class="line">    console.log(i); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子中定义的 start 标签可以在将来由 break 或 continue 语句引用。加标签的语句一般都要与 for 语句等循环语句配合使用。</p>
+<h3 id="break-和-continue-语句"><a href="#break-和-continue-语句" class="headerlink" title="break 和 continue 语句"></a>break 和 continue 语句</h3><p>break 和 continue 语句用于在循环中精确地控制代码的执行。其中，break 语句会立即退出循环，强制继续执行循环后面的语句。而 continue 语句虽然也是立即退出循环，但退出循环后会从循环的顶部继续执行。请看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var num = 0;</div><div class="line">for (var i=1; i &lt; 10; i++) &#123;</div><div class="line">    if (i % 5 == 0) &#123;</div><div class="line">       break;</div><div class="line">    &#125;</div><div class="line">    num++;</div><div class="line">&#125;</div><div class="line">console.log(num);   // 4</div></pre></td></tr></table></figure>
+<p>这个例子中的 for 循环会将变量 i 由1递增至 10。在循环体内，有一个 if 语句检查 i 的值是否可以被 5 整除（使用求模运算符）。如果是，则执行 break 语句退出循环。另一方面，变量 num 从 0 开始，用于记录循环执行的次数。在执行 break 语句之后，结果显示 4。也就是说，在变量 i 等于 5 时，循环总共执行了 4 次；而 break 语句的执行，导致了循环在 num 再次递增之前就退出了。如果在这里把 break 替换为 continue 的话，则可以看到另一种结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var num = 0;</div><div class="line">for (var i=1; i &lt; 10; i++) &#123;</div><div class="line">if (i % 5 == 0) &#123;</div><div class="line">        continue;</div><div class="line">    &#125;</div><div class="line">    num++;</div><div class="line">&#125;</div><div class="line">console.log(num);   // 8</div></pre></td></tr></table></figure>
+<p>例子的结果显示 8，也就是循环总共执行了 8 次。当变量 i 等于 5 时，循环会在 num 再次递增之前退出，但接下来执行的是下一次循环，即i的值等于 6 的循环。于是，循环又继续执行，直到 i 等于 10 时自然结束。而 num 的最终值之所以是 8，是因为 continue 语句导致它少递增了一次。</p>
+<p>break 和 continue 语句都可以与 label 语句联合使用，从而返回代码中特定的位置。这种联合使用的情况多发生在循环嵌套的情况下，如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var num = 0;</div><div class="line">outermost:</div><div class="line">for (var i = 0; i &lt; 10; i++) &#123;</div><div class="line">     for (var j = 0; j &lt; 10; j++) &#123;</div><div class="line">        if (i == 5 &amp;&amp; j == 5) &#123;</div><div class="line">            break outermost;</div><div class="line">        &#125;</div><div class="line">        num++;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">console.log(num);   // 55</div></pre></td></tr></table></figure>
+<p>在这个例子中，outermost 标签表示外部的 for 语句。如果每个循环正常执行 10 次，则 num++ 语句就会正常执行 100 次。换句话说，如果两个循环都自然结束，num 的值应该是 100。但内部循环中的 break 语句带了一个参数：要返回到的标签。添加这个标签的结果将导致 break 语句不仅会退出内部的 for 语句（即使用变量 j 的循环），而且也会退出外部的 for 语句（即使用变量 i 的循环）。为此，当变量 i 和 j 都等于 5 时， num的值正好是 55。同样，continue 语句也可以像这样与 label 语句联用，如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var num = 0;</div><div class="line">outermost:</div><div class="line">for (var i = 0; i &lt; 10; i++) &#123;</div><div class="line">    for (var j = 0; j &lt; 10; j++) &#123;</div><div class="line">        if (i == 5 &amp;&amp; j == 5) &#123;</div><div class="line">            continue outermost;</div><div class="line">        &#125;</div><div class="line">        num++;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">console.log(num);   // 95</div></pre></td></tr></table></figure>
+<p>在这种情况下，continue 语句会强制继续执行循环，退出内部循环，执行外部循环。当 j 是 5 时，continue 语句执行，而这也就意味着内部循环少执行了 5 次，因此 num 的结果是 95。</p>
+<p>虽然联用 break、continue 和 label 语句能够执行复杂的操作，但如果使用过度，也会给调试带来麻烦。在此，我们建议如果使用 label 语句，一定要使用描述性的标签，同时不要嵌套过多的循环。</p>
+<h3 id="return-语句"><a href="#return-语句" class="headerlink" title="return 语句"></a>return 语句</h3><p>return 语句的作用是指定函数调用后的返回值。return 语句的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return [expression];</div></pre></td></tr></table></figure>
+<p>下面是一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function square(x) &#123; return x*x; &#125;  // 一个包含 return 语句的函数</div><div class="line">square(2);                          // 调用结果为 4</div></pre></td></tr></table></figure>
+<p>return 语句只能在函数体内出现，如果不是的话会报语法错误。当执行到 return 语句的时候，函数终止执行，并返回 expression 的值给调用程序。如果没有 return 语句，则函数调用仅依次执行函数体内的每一条语句直到函数结束，最后返回调用程序。这种情况下，调用表达式的结果是 undefined。return 语句经常作为函数内的最后一条语句出现，但并不是说要一定放在函数最后。return 语句可以单独使用而不必带有 expression，这样的话函数也会向调用程序返回 undefined。</p>
+<p>由于 JavaScript 可以自动插入分号，因此在 return 关键字和它后面的表达式之间不能有换行。</p>
+<h3 id="throw-语句"><a href="#throw-语句" class="headerlink" title="throw 语句"></a>throw 语句</h3><p>throw 语句的作用是把程序运行时产生的错误显式地抛出异常。throw 语句的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">throw expression;</div></pre></td></tr></table></figure>
+<p>expression 的值可以是任意类型的。可以抛出一个代表错误码的数字，或者包含可读的错误消息的字符串。当 JavaScript 解释器抛出异常的时候通常采用 Error 类型和其子类型。Error 对象有一个 name 属性表示错误类型，一个 message 属性用来存放传递给构造函数的字符串，在下面的例子中，当使用非法参数调用函数时就抛出一个 Error 对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function factorial(x) &#123;</div><div class="line">// 如果输入参数是非法的，则抛出一个异常</div><div class="line">    if (x &lt; 0) throw new Error(&quot;x不能是负数&quot;);</div><div class="line">    // 否则，计算出一个值，并正常地返回它</div><div class="line">    for(var f = 1; x &gt; 1; f *= x, x--) /* empty */ ;</div><div class="line">    return f;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当抛出异常时，JavaScript 解释器会立即停止当前正在执行的逻辑，并跳转至就近的异常处理程序。如果没有找到任何异常处理程序，异常就会沿着 JavaScript 方法的词法结构和调用栈向上传播。最终 JavaScript 将把异常当成程序错误来处理，并报告给用户。</p>
+<h3 id="try-语句"><a href="#try-语句" class="headerlink" title="try 语句"></a>try 语句</h3><p>try-catch-finally 语句是 JavaScript 中异常处理机制，try-catch-finally 语句的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">try &#123;statement&#125; [catch &#123;handler statement&#125;] [finally &#123;cleaup statement&#125;]</div></pre></td></tr></table></figure>
+<p>try 从句定义了需要处理的异常所在的代码块。catch 从句跟随在 try 从句之后，当 try 块内某处发生了异常时，调用 catch 内的代码逻辑。catch 从句后跟随 finally 块，后者中放置清理代码，不管 try 块中是否产生异常，finally 块内的逻辑总是会执行。尽管 catch 和 finally 都是可选的，但 try 从句需要至少二者之一与之组成完整的语句。try、catch 和 finally 语句块都需要使用花括号括起来，这里的花括号是必需的，即使从句中只有一条语句也不能省略花括号。</p>
+<p>下面的代码详细的说明了 try-catch-finally 的使用目的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">    // 通常来讲，这里的代码会从头执行到尾而不会产生任何问题，</div><div class="line">    // 但有时会抛出一个异常，要么是由 throw 语句直接抛出异常，</div><div class="line">    // 要么是通过调用一个方法间接抛出异常</div><div class="line">&#125;</div><div class="line">catch(e) &#123;</div><div class="line">    // 当且仅当 try 语句块抛出了异常，才会执行这里的代码</div><div class="line">    // 这里可以通过局部变量 e 来获得对 Error 对象或者抛出的其他值的引用</div><div class="line">    // 这里的代码块可以基于某种原因处理这个异常，也可以忽略这个异常，</div><div class="line">    // 还可以通过 throw 语句重新抛出异常</div><div class="line">&#125;</div><div class="line">finally &#123;</div><div class="line">    // 不管 try 语句块是否抛出了异常，这里的逻辑总是会执行，终止 try 语句块的方式有：</div><div class="line">    // 1）正常终止，执行完语句块的最后一条语句</div><div class="line">    // 2）通过 break、continue 或 return 语句终止</div><div class="line">    // 3）抛出一个异常，异常被 catch 从句捕获</div><div class="line">    // 4）抛出一个异常，异常未被捕获，继续向上传播</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="with-语句"><a href="#with-语句" class="headerlink" title="with 语句"></a>with 语句</h3><p>with 语句的作用是将代码的作用域设置到一个特定的对象中。with 语句的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">with (expression) statement;</div></pre></td></tr></table></figure>
+<p>定义 with 语句的目的主要是为了简化多次编写同一个对象的工作，如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var qs = location.search.substring(1);</div><div class="line">var hostName = location.hostname;</div><div class="line">var url = location.href;</div></pre></td></tr></table></figure>
+<p>上面几行代码都包含 location 对象。如果使用 with 语句，可以把上面的代码改写成如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">with(location)&#123;</div><div class="line">    var qs = search.substring(1);</div><div class="line">    var hostName = hostname;</div><div class="line">    var url = href;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个重写后的例子中，使用 with 语句关联了 location 对象。这意味着在 with 语句的代码块内部，每个变量首先被认为是一个局部变量，而如果在局部环境中找不到该变量的定义，就会查询 location 对象中是否有同名的属性。如果发现了同名属性，则以 location 对象属性的值作为变量的值。</p>
+<p>由于大量使用 with 语句会导致性能下降，同时也会给调试代码造成困难，因此在开发大型应用程序时，不建议使用 with 语句。严格模式下不允许使用 with 语句，否则将视为语法错误。</p>
+<h3 id="debugger-语句"><a href="#debugger-语句" class="headerlink" title="debugger 语句"></a>debugger 语句</h3><p>debugger 语句通常什么也不做。然而，当浏览器的调试工具可用并运行的时候，JavaScript 解释器将会以调式模式运行。实际上，这条语句用来产生一个断点（breakpoint），JavaScript 代码的执行会停止在断点的位置，这时可以使用调试器输出变量的值、检查调用栈等。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f(o) &#123;</div><div class="line">    if (o === undefined) &#123;</div><div class="line">        debugger;  // 程序会停止在该位置</div><div class="line">    &#125;</div><div class="line">    // 函数的其他部分</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="use-strict-语句"><a href="#use-strict-语句" class="headerlink" title="use strict 语句"></a>use strict 语句</h3><p>请参见「语法」-「严格模式」。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/23/JS溯源之变量和数据类型/" rel="next" title="JS溯源之变量和数据类型">
+                <i class="fa fa-chevron-left"></i> JS溯源之变量和数据类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/04/JS溯源之对象/" rel="prev" title="JS溯源之对象">
+                JS溯源之对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Arnold.jpg"
+               alt="小柯同志" />
+          <p class="site-author-name" itemprop="name">小柯同志</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件语句"><span class="nav-number">1.</span> <span class="nav-text">条件语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if-else-语句"><span class="nav-number">1.1.</span> <span class="nav-text">if-else 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch-语句"><span class="nav-number">1.2.</span> <span class="nav-text">switch 语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while-语句"><span class="nav-number">2.1.</span> <span class="nav-text">while 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#do-while-语句"><span class="nav-number">2.2.</span> <span class="nav-text">do-while 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-语句"><span class="nav-number">2.3.</span> <span class="nav-text">for 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-in-语句"><span class="nav-number">2.4.</span> <span class="nav-text">for-in 语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳转"><span class="nav-number">3.</span> <span class="nav-text">跳转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#label-语句"><span class="nav-number">3.1.</span> <span class="nav-text">label 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break-和-continue-语句"><span class="nav-number">3.2.</span> <span class="nav-text">break 和 continue 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return-语句"><span class="nav-number">3.3.</span> <span class="nav-text">return 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throw-语句"><span class="nav-number">3.4.</span> <span class="nav-text">throw 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try-语句"><span class="nav-number">3.5.</span> <span class="nav-text">try 语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#with-语句"><span class="nav-number">4.1.</span> <span class="nav-text">with 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#debugger-语句"><span class="nav-number">4.2.</span> <span class="nav-text">debugger 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-strict-语句"><span class="nav-number">4.3.</span> <span class="nav-text">use strict 语句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小柯同志</span>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

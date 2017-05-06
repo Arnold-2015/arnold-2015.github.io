@@ -1,0 +1,791 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/bone.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="正则表达式（regular expression）是一个描述字符模式的对象，使用正则表达式可以进行强大的模式匹配和文本检索与替换功能。JavaScript 的正则表达式语法是 Perl5 的正则表达式语法的大型子集，所以对于有 Perl 编程经验的程序员来说，学习 JavaScript 中的正则表达式是小菜一碟。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS溯源之正则表达式">
+<meta property="og:url" content="http://www.wedog.cn/2016/08/04/JS溯源之正则表达式/index.html">
+<meta property="og:site_name" content="未到">
+<meta property="og:description" content="正则表达式（regular expression）是一个描述字符模式的对象，使用正则表达式可以进行强大的模式匹配和文本检索与替换功能。JavaScript 的正则表达式语法是 Perl5 的正则表达式语法的大型子集，所以对于有 Perl 编程经验的程序员来说，学习 JavaScript 中的正则表达式是小菜一碟。">
+<meta property="og:updated_time" content="2017-05-06T07:19:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS溯源之正则表达式">
+<meta name="twitter:description" content="正则表达式（regular expression）是一个描述字符模式的对象，使用正则表达式可以进行强大的模式匹配和文本检索与替换功能。JavaScript 的正则表达式语法是 Perl5 的正则表达式语法的大型子集，所以对于有 Perl 编程经验的程序员来说，学习 JavaScript 中的正则表达式是小菜一碟。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.wedog.cn/2016/08/04/JS溯源之正则表达式/"/>
+
+
+
+
+
+  <title>JS溯源之正则表达式 | 未到</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未到</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">折腾青春，愉悦梦想</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/08/04/JS溯源之正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小柯同志">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Arnold.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未到">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS溯源之正则表达式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T00:00:00+08:00">
+                2016-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS溯源/" itemprop="url" rel="index">
+                    <span itemprop="name">JS溯源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>正则表达式（regular expression）是一个描述字符模式的对象，使用正则表达式可以进行强大的模式匹配和文本检索与替换功能。JavaScript 的正则表达式语法是 Perl5 的正则表达式语法的大型子集，所以对于有 Perl 编程经验的程序员来说，学习 JavaScript 中的正则表达式是小菜一碟。</p>
+<a id="more"></a>
+<h2 id="正则表达式的定义"><a href="#正则表达式的定义" class="headerlink" title="正则表达式的定义"></a>正则表达式的定义</h2><p>JavaScript 中的正则表达式用 RegExp 对象表示，可以使用 RegExp() 构造函数来创建 RegExp 对象，不过 RegExp 对象更多是通过字面量的语法来创建，使用下面类似 Perl 的语法，就可以创建一个正则表达式。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 推荐写法</div><div class="line">var expression = / pattern / flags ;</div><div class="line">// 不推荐写法</div><div class="line">var expression = new RegExp(pattern, flags);</div></pre></td></tr></table></figure>
+<p>其中的模式（pattern）部分，是包含在一对斜杠 / 之间的字符，可以是任何简单或复杂的正则表达式，可以包含字符类、限定符、分组、向前查找以及反向引用。每个正则表达式都可带有一或多个标志（flags），用以标明正则表达式的行为。正则表达式的匹配模式支持下列3个标志。</p>
+<ul>
+<li>g：表示全局（global）模式，即模式将被应用于所有字符串，而非在发现第一个匹配项时立即停止；</li>
+<li>i：表示不区分大小写（case-insensitive）模式，即在确定匹配项时忽略模式与字符串的大小写；</li>
+<li>m：表示多行（multiline）模式，即在到达一行文本末尾时还会继续查找下一行中是否存在与模式匹配的项。</li>
+</ul>
+<p>因此，一个正则表达式就是一个模式与上述3个标志的组合体。不同组合产生不同结果，如下面的例子所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 匹配字符串中所有&quot;at&quot;的实例</div><div class="line">var pattern1 = /at/g;</div><div class="line">// 匹配第一个&quot;bat&quot;或&quot;cat&quot;，不区分大小写</div><div class="line">var pattern2 = /[bc]at/i;</div><div class="line">// 匹配所有以&quot;at&quot;结尾的3个字符的组合，不区分大小写</div><div class="line">var pattern3 = /.at/gi;</div></pre></td></tr></table></figure>
+<p>与其他语言中的正则表达式类似，模式中使用的所有元字符都必须转义。正则表达式中的元字符包括：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">( [ &#123; \ ^ $ | ) ? * + . ] &#125;</div></pre></td></tr></table></figure>
+<p>这些元字符在正则表达式中都有一或多种特殊用途，因此如果想要匹配字符串中包含的这些字符，就必须对它们进行转义。下面给出几个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 匹配第一个&quot;bat&quot;或&quot;cat&quot;，不区分大小写</div><div class="line">var pattern1 = /[bc]at/i;</div><div class="line">// 匹配第一个&quot; [bc]at&quot;，不区分大小写</div><div class="line">var pattern2 = /\[bc\]at/i;</div><div class="line">// 匹配所有以&quot;at&quot;结尾的3个字符的组合，不区分大小写</div><div class="line">var pattern3 = /.at/gi;</div><div class="line">// 匹配所有&quot;.at&quot;，不区分大小写</div><div class="line">var pattern4 = /\.at/gi;</div></pre></td></tr></table></figure>
+<h2 id="RegExp-实例属性"><a href="#RegExp-实例属性" class="headerlink" title="RegExp 实例属性"></a>RegExp 实例属性</h2><p>RegExp 的每个实例都具有下列属性，通过这些属性可以取得有关模式的各种信息。</p>
+<ul>
+<li>global：布尔值，表示是否设置了 g 标志。</li>
+<li>ignoreCase：布尔值，表示是否设置了 i 标志。</li>
+<li>lastIndex：整数，表示开始搜索下一个匹配项的字符位置，从0算起。</li>
+<li>multiline：布尔值，表示是否设置了 m 标志。</li>
+<li>source：正则表达式的字符串表示，按照字面量形式而非传入构造函数中的字符串模式返回。</li>
+</ul>
+<p>通过这些属性可以获知一个正则表达式的各方面信息，但却没有多大用处，因为这些信息全都包含在模式声明中。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var pattern1 = /\[bc\]at/i;</div><div class="line">console.log(pattern1.global);         // false</div><div class="line">console.log(pattern1.ignoreCase);     // true</div><div class="line">console.log(pattern1.multiline);      // false</div><div class="line">console.log(pattern1.lastIndex);      // 0</div><div class="line">console.log(pattern1.source);         // &quot;\[bc\]at&quot;</div><div class="line">var pattern2 = new RegExp(&quot;\\[bc\\]at&quot;, &quot;i&quot;);</div><div class="line">console.log(pattern2.global);         // false</div><div class="line">console.log(pattern2.ignoreCase);     // true</div><div class="line">console.log(pattern2.multiline);      // false</div><div class="line">console.log(pattern2.lastIndex);      // 0</div><div class="line">console.log(pattern2.source);         // &quot;\[bc\]at&quot;</div></pre></td></tr></table></figure>
+<p>我们注意到，尽管第一个模式使用的是字面量，第二个模式使用了 RegExp 构造函数，但它们的 source 属性是相同的。可见，source 属性保存的是规范形式的字符串，即字面量形式所用的字符串。</p>
+<h2 id="RegExp-实例方法"><a href="#RegExp-实例方法" class="headerlink" title="RegExp 实例方法"></a>RegExp 实例方法</h2><p>RegExp 对象的主要方法是 exec()，该方法是专门为捕获组而设计的。exec() 接受一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组；或者在没有匹配项的情况下返回 null。返回的数组虽然是 Array 的实例，但包含两个额外的属性：index 和 input。其中，index 表示匹配项在字符串中的位置，而 input 表示应用正则表达式的字符串。在数组中，第一项是与整个模式匹配的字符串，其他项是与模式中的捕获组匹配的字符串（如果模式中没有捕获组，则该数组只包含一项）。请看下面的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var text = &quot;mom and dad and baby&quot;;</div><div class="line">var pattern = /mom( and dad( and baby)?)?/gi;</div><div class="line">var matches = pattern.exec(text);</div><div class="line">console.log(matches.index);     // 0</div><div class="line">console.log(matches.input);     // &quot;mom and dad and baby&quot;</div><div class="line">console.log(matches[0]);        // &quot;mom and dad and baby&quot;</div><div class="line">console.log(matches[1]);        // &quot; and dad and baby&quot;</div><div class="line">console.log(matches[2]);        // &quot; and baby&quot;</div></pre></td></tr></table></figure>
+<p>这个例子中的模式包含两个捕获组。最内部的捕获组匹配 “and baby”，而包含它的捕获组匹配 “and dad” 或者 “and dad and baby”。当把字符串传入 exec() 方法中之后，发现了一个匹配项。因为整个字符串本身与模式匹配，所以返回的数组 matchs 的 index 属性值为 0。数组中的第一项是匹配的整个字符串，第二项包含与第一个捕获组匹配的内容，第三项包含与第二个捕获组匹配的内容。</p>
+<p>对于 exec() 方法而言，即使在模式中设置了全局标志 g，它每次也只会返回一个匹配项。在不设置全局标志的情况下，在同一个字符串上多次调用 exec() 将始终返回第一个匹配项的信息。而在设置全局标志的情况下，每次调用 exec() 则都会在字符串中继续查找新匹配项，如下面的例子所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var text = &quot;cat, bat, sat, fat&quot;;</div><div class="line">var pattern1 = /.at/;</div><div class="line">// 非全局模式，第一次匹配</div><div class="line">var matches = pattern1.exec(text);</div><div class="line">console.log(matches.index);        // 0</div><div class="line">console.log(matches[0]);           // cat</div><div class="line">console.log(pattern1.lastIndex);   // 0</div><div class="line">// 非全局模式，第二次匹配</div><div class="line">matches = pattern1.exec(text);</div><div class="line">console.log(matches.index);        // 0</div><div class="line">console.log(matches[0]);           // cat</div><div class="line">console.log(pattern1.lastIndex);   // 0</div><div class="line">var pattern2 = /.at/g;</div><div class="line">// 全局模式，第一次匹配</div><div class="line">var matches = pattern2.exec(text);</div><div class="line">console.log(matches.index);        // 0</div><div class="line">console.log(matches[0]);           // cat</div><div class="line">console.log(pattern2.lastIndex);   // 0</div><div class="line">// 全局模式，第二次匹配</div><div class="line">matches = pattern2.exec(text);</div><div class="line">console.log(matches.index);        // 5</div><div class="line">console.log(matches[0]);           // bat</div><div class="line">console.log(pattern2.lastIndex);   // 8</div></pre></td></tr></table></figure>
+<p>这个例子中的第一个模式 pattern1 不是全局模式，因此每次调用 exec() 返回的都是第一个匹配项 “cat”。而第二个模式 pattern2 是全局模式，因此每次调用 exec() 都会返回字符串中的下一个匹配项，直至搜索到字符串末尾为止。此外，还应该注意模式的 lastIndex 属性的变化情况。在全局匹配模式下，lastIndex 的值在每次调用 exec() 后都会增加，而在非全局模式下则始终保持不变。</p>
+<p>IE 的 JavaScript 实现在 lastIndex 属性上存在偏差，即使在非全局模式下，lastIndex 属性每次也会变化。</p>
+<p>正则表达式的第二个方法是 test()，它接受一个字符串参数。在模式与该参数匹配的情况下返回 true；否则，返回 false。在只想知道目标字符串与某个模式是否匹配，但不需要知道其文本内容的情况下，使用这个方法非常方便。因此，test() 方法经常被用在 if 语句中，如下面的例子所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var text = &quot;000-00-0000&quot;;</div><div class="line">var pattern = /\d&#123;3&#125;-\d&#123;2&#125;-\d&#123;4&#125;/;</div><div class="line">if (pattern.test(text))&#123;</div><div class="line">    console.log(&quot;The pattern was matched.&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用正则表达式来测试了一个数字序列。如果输入的文本与模式匹配，则显示一条消息。这种用法经常出现在验证用户输入的情况下，因为我们只想知道输入是不是有效，至于它为什么无效就无关紧要了。</p>
+<p>RegExp 实例继承的 toLocaleString() 和 toString() 方法都会返回正则表达式的字面量，与创建正则表达式的方式无关。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var pattern = new RegExp(&quot;\\[bc\\]at&quot;, &quot;gi&quot;);</div><div class="line">console.log(pattern.toString());             // /\[bc\]at/gi</div><div class="line">console.log(pattern.toLocaleString());       // /\[bc\]at/gi</div></pre></td></tr></table></figure>
+<p>即使上例中的模式是通过调用 RegExp 构造函数创建的，但 toLocaleString() 和 toString() 方法仍然会像它是以字面量形式创建的一样显示其字符串表示。</p>
+<h2 id="RegExp-构造函数属性"><a href="#RegExp-构造函数属性" class="headerlink" title="RegExp 构造函数属性"></a>RegExp 构造函数属性</h2><p>RegExp 构造函数包含一些属性（这些属性在其他语言中被看成是静态属性）。这些属性适用于作用域中的所有正则表达式，并且基于所执行的最近一次正则表达式操作而变化。关于这些属性的另一个独特之处，就是可以通过两种方式访问它们。换句话说，这些属性分别有一个长属性名和一个短属性名（Opera是例外，它不支持短属性名）。下表列出了RegExp构造函数的属性。</p>
+<table>
+<thead>
+<tr>
+<th>长属性名</th>
+<th>短属性名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input</td>
+<td>$_</td>
+<td>最近一次要匹配的字符串。Opera未实现此属性。</td>
+</tr>
+<tr>
+<td>lastMatch</td>
+<td>$&amp;</td>
+<td>最近一次的匹配项。Opera未实现此属性。</td>
+</tr>
+<tr>
+<td>lastParen</td>
+<td>$+</td>
+<td>最近一次匹配的捕获组。Opera未实现此属性。</td>
+</tr>
+<tr>
+<td>leftContext</td>
+<td>$`</td>
+<td>input字符串中lastMatch之前的文本。</td>
+</tr>
+<tr>
+<td>multiline</td>
+<td>$*</td>
+<td>布尔值，表示是否所有表达式都使用多行模式。IE和Opera未实现此属性。</td>
+</tr>
+<tr>
+<td>rightContext</td>
+<td>$’</td>
+<td>Input字符串中lastMatch之后的文本。</td>
+</tr>
+</tbody>
+</table>
+<p>使用这些属性可以从 exec() 或 test() 执行的操作中提取出更具体的信息。请看下面的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var text = &quot;this has been a short summer&quot;;</div><div class="line">var pattern = /(.)hort/g;</div><div class="line">/*</div><div class="line"> * 注意：Internet Explorer 不支持 multiline 属性</div><div class="line"> * Opera 不支持 input、lastMatch、lastParen 和 multiline 属性</div><div class="line"> */</div><div class="line">if (pattern.test(text))&#123;</div><div class="line">    console.log(RegExp.input);          // this has been a short summer</div><div class="line">    console.log(RegExp.leftContext);    // this has been a</div><div class="line">    console.log(RegExp.rightContext);   // summer</div><div class="line">    console.log(RegExp.lastMatch);      // short</div><div class="line">    console.log(RegExp.lastParen);      // s</div><div class="line">    console.log(RegExp.multiline);      // false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如前所述，例子使用的长属性名都可以用相应的短属性名来代替。只不过，由于这些短属性名大都不是有效的 JavaScript 标识符，因此必须通过方括号语法来访问它们，如下所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var text = &quot;this has been a short summer&quot;;</div><div class="line">var pattern = /(.)hort/g;</div><div class="line">/*</div><div class="line"> * 注意：Internet Explorer 不支持 multiline 属性</div><div class="line"> * Opera 不支持 input、lastMatch、lastParen 和 multiline 属性</div><div class="line"> */</div><div class="line">if (pattern.test(text))&#123;</div><div class="line">    console.log(RegExp.$_);      // this has been a short summer</div><div class="line">    console.log(RegExp[&quot;$`&quot;]);   // this has been a</div><div class="line">    console.log(RegExp[&quot;$&apos;&quot;]);   // summer</div><div class="line">    console.log(RegExp[&quot;$&amp;&quot;]);   // short</div><div class="line">    console.log(RegExp[&quot;$+&quot;]);   // s</div><div class="line">    console.log(RegExp[&quot;$*&quot;]);   // false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>除了上面介绍的几个属性之外，还有多达9个用于存储捕获组的构造函数属性。访问这些属性的语法是 RegExp.$1、RegExp.$2…RegExp.$9，分别用于存储第一、第二…第九个匹配的捕获组。在调用 exec() 或 test() 方法时，这些属性会被自动填充。然后，我们就可以像下面这样来使用它们。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var text = &quot;this has been a short summer&quot;;</div><div class="line">var pattern = /(..)or(.)/g;</div><div class="line">if (pattern.test(text))&#123;</div><div class="line">    console.log(RegExp.$1);  // sh</div><div class="line">    console.log(RegExp.$2);  // t</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里创建了一个包含两个捕获组的模式，并用该模式测试了一个字符串。即使 test() 方法只返回一个布尔值，但 RegExp 构造函数的属性 $1 和 $2 也会被匹配相应捕获组的字符串自动填充。</p>
+<h2 id="模式的局限性"><a href="#模式的局限性" class="headerlink" title="模式的局限性"></a>模式的局限性</h2><p>尽管 JavaScript 中的正则表达式功能还是比较完备的，但仍然缺少某些语言（特别是 Perl）所支持的高级正则表达式特性。下面列出了 JavaScript 正则表达式所不支持的特性。</p>
+<ul>
+<li>匹配字符串开始和结尾的\A和\Z锚</li>
+<li>向后查找（lookbehind）</li>
+<li>并集和交集类</li>
+<li>原子组（atomic grouping）</li>
+<li>Unicode支持（单个字符除外，如\uFFFF）</li>
+<li>命名的捕获组</li>
+<li>s（single，单行）和x（free-spacing，无间隔）匹配模式</li>
+<li>条件匹配</li>
+<li>正则表达式注释<br>即使存在这些限制，JavaScript 正则表达式仍然是非常强大的，能够帮我们完成绝大多数模式匹配任务。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/11/JS溯源之函数/" rel="next" title="JS溯源之函数">
+                <i class="fa fa-chevron-left"></i> JS溯源之函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/21/JS溯源之基本包装类型/" rel="prev" title="JS溯源之基本包装类型">
+                JS溯源之基本包装类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Arnold.jpg"
+               alt="小柯同志" />
+          <p class="site-author-name" itemprop="name">小柯同志</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式的定义"><span class="nav-number">1.</span> <span class="nav-text">正则表达式的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegExp-实例属性"><span class="nav-number">2.</span> <span class="nav-text">RegExp 实例属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegExp-实例方法"><span class="nav-number">3.</span> <span class="nav-text">RegExp 实例方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegExp-构造函数属性"><span class="nav-number">4.</span> <span class="nav-text">RegExp 构造函数属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式的局限性"><span class="nav-number">5.</span> <span class="nav-text">模式的局限性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小柯同志</span>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

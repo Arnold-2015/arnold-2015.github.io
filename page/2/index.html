@@ -92,7 +92,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="未到">
-<meta property="og:url" content="http://www.wedog.cn/index.html">
+<meta property="og:url" content="http://www.wedog.cn/page/2/index.html">
 <meta property="og:site_name" content="未到">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="未到">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://www.wedog.cn/"/>
+  <link rel="canonical" href="http://www.wedog.cn/page/2/"/>
 
 
 
@@ -250,7 +250,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/10/05/JS溯源之闭包/">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/07/11/JS溯源之函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小柯同志">
@@ -269,7 +269,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/10/05/JS溯源之闭包/" itemprop="url">JS溯源之闭包</a></h1>
+                <a class="post-title-link" href="/2016/07/11/JS溯源之函数/" itemprop="url">JS溯源之函数</a></h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-05T00:00:00+08:00">
-                2016-10-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-11T00:00:00+08:00">
+                2016-07-11
               </time>
             
 
@@ -339,10 +339,10 @@
 
       
         
-          <p>国庆假期还在写博客，真的被自己感动到了—哈哈。<br>相信做前端的在面试的时候被问及最多的一个东西莫过于闭包了，好，那么今天我们就来讲一讲闭包。说到闭包，首先必须讲一讲作用域，脱离作用域来讲闭包那真的是在耍流氓。作用域和闭包是 JavaScript 最重要的概念之一，想要进一步学习 JavaScript，就必须理解 JavaScript 作用域和闭包的工作原理。<br>
+          <p>函数是一段代码，它只定义一次，但可以被执行或调用任意次。在 JavaScript 里，函数即对象，程序可以随意操控它们。比如，可以把函数赋值给变量，或者作为参数传递给其他函数，也可以给它们设置属性，甚至调用它们的方法。如果函数挂载在一个对象上，作为对象的一个属性，就称它为对象的方法。如果函数嵌套在其他函数中定义，这样它们就可以访问它们被定义时所处的作用域中的任何变量。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/10/05/JS溯源之闭包/#more" rel="contents">
+            <a class="btn" href="/2016/07/11/JS溯源之函数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -388,7 +388,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/09/28/JS溯源之原型与原型链/">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/06/22/JS溯源之数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小柯同志">
@@ -407,7 +407,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/09/28/JS溯源之原型与原型链/" itemprop="url">JS溯源之原型与原型链</a></h1>
+                <a class="post-title-link" href="/2016/06/22/JS溯源之数组/" itemprop="url">JS溯源之数组</a></h1>
         
 
         <div class="post-meta">
@@ -419,8 +419,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-28T00:00:00+08:00">
-                2016-09-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-22T00:00:00+08:00">
+                2016-06-22
               </time>
             
 
@@ -477,10 +477,14 @@
 
       
         
-          <p>原型链是一种机制，指的是 JavaScript 每个对象都有一个内置的 <strong>proto</strong> 属性指向创建它的构造函数的 prototype（原型）属性。原型链的作用是为了实现对象的继承，要理解原型链，需要先从函数对象、constructor、new、prototype、<strong>proto</strong> 这五个概念入手。<br>
+          <p>数组是值的有序集合。每个值叫做一个元素，而每个元素在数组中有一个位置，以数字表示，称为索引。</p>
+<p>JavaScript 数组是无类型的，数组元素可以是任意类型，并且同一个数组中的不同元素也可能有不同的类型。数组的元素甚至也可能是对象或其他数组。</p>
+<p>JavaScript数组是动态的，根据需要它们会增长或缩减，并且在创建数组时无须声明一个固定的大小或者在数组大小变化时无须重新分配空间。</p>
+<p>JavaScript数组可能是稀疏的，数组元素的索引不一定要连续的，它们之间可以有空缺。每个JavaScript数组都有一个length属性。针对非稀疏数组，该属性就是数组元素的个数。针对稀疏数组，length比所有元素的索引要大。</p>
+<p>JavaScript 数组是 JavaScript 对象的特殊形式，数组索引实际上和碰巧是整数的属性名差不多。通常，数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要快很多。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/09/28/JS溯源之原型与原型链/#more" rel="contents">
+            <a class="btn" href="/2016/06/22/JS溯源之数组/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -526,7 +530,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/09/10/JS溯源之事件/">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/05/04/JS溯源之对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小柯同志">
@@ -545,7 +549,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/09/10/JS溯源之事件/" itemprop="url">JS溯源之事件</a></h1>
+                <a class="post-title-link" href="/2016/05/04/JS溯源之对象/" itemprop="url">JS溯源之对象</a></h1>
         
 
         <div class="post-meta">
@@ -557,8 +561,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-10T00:00:00+08:00">
-                2016-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T00:00:00+08:00">
+                2016-05-04
               </time>
             
 
@@ -615,10 +619,10 @@
 
       
         
-          <p>JavaScript 程序采用了异步事件驱动编程模型。在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件（event）。例如，当 Web 浏览器加载完文档、用户把鼠标指针移到超链接上或敲击键盘时，Web 浏览器都会产生事件。如果 JavaScript 应用程序关注特定类型的事件，那么它可以注册当这类事件发生时要调用的一个或多个函数。请注意，这种风格并不只应用于 Web 编程，所有使用图形用户界面的应用程序都采用了它，它们静待某些事情发生（即，它们等待事件发生），然后它们响应。<br>
+          <p>对象是 JavaScript 的数据类型。它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值，因此我们可以把它看成是从字符串到值的映射。对象是动态的，可以随时新增和删除自有属性。对象除了可以保持自有的属性，还可以从一个称为原型的对象继承属性，这种「原型式继承（prototypal inheritance）」是 JavaScript 的核心特征。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/09/10/JS溯源之事件/#more" rel="contents">
+            <a class="btn" href="/2016/05/04/JS溯源之对象/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -664,7 +668,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/08/21/JS溯源之基本包装类型/">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/04/28/JS溯源之语句/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小柯同志">
@@ -683,7 +687,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/08/21/JS溯源之基本包装类型/" itemprop="url">JS溯源之基本包装类型</a></h1>
+                <a class="post-title-link" href="/2016/04/28/JS溯源之语句/" itemprop="url">JS溯源之语句</a></h1>
         
 
         <div class="post-meta">
@@ -695,8 +699,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-21T00:00:00+08:00">
-                2016-08-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-28T00:00:00+08:00">
+                2016-04-28
               </time>
             
 
@@ -753,10 +757,10 @@
 
       
         
-          <p>为了便于操作基本类型值，JavaScript 还提供了3个特殊的引用类型：Boolean、Number 和 String。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。来看下面的例子。<br>
+          <p>表达式在 JavaScript 中是短语，那么语句就是整句命令。表达式用来计算出一个值，语句用来执行以使某件事发生。从本质上看，语句定义了 JavaScript 中的主要语法，语句通常使用一或多个关键字来完成给定任务。语句可以很简单，例如通知函数退出；也可以比较复杂，例如指定重复执行某个命令的次数。下表列出了 JavaScript 大部分语句的语法和用途：<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/08/21/JS溯源之基本包装类型/#more" rel="contents">
+            <a class="btn" href="/2016/04/28/JS溯源之语句/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -802,7 +806,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/08/04/JS溯源之正则表达式/">
+    <link itemprop="mainEntityOfPage" href="http://www.wedog.cn/2016/04/23/JS溯源之变量和数据类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小柯同志">
@@ -821,7 +825,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/08/04/JS溯源之正则表达式/" itemprop="url">JS溯源之正则表达式</a></h1>
+                <a class="post-title-link" href="/2016/04/23/JS溯源之变量和数据类型/" itemprop="url">JS溯源之变量和数据类型</a></h1>
         
 
         <div class="post-meta">
@@ -833,8 +837,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T00:00:00+08:00">
-                2016-08-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-23T00:00:00+08:00">
+                2016-04-23
               </time>
             
 
@@ -891,10 +895,10 @@
 
       
         
-          <p>正则表达式（regular expression）是一个描述字符模式的对象，使用正则表达式可以进行强大的模式匹配和文本检索与替换功能。JavaScript 的正则表达式语法是 Perl5 的正则表达式语法的大型子集，所以对于有 Perl 编程经验的程序员来说，学习 JavaScript 中的正则表达式是小菜一碟。</p>
+          <p>当程序需要将值保存起来以备将来使用时，便将其赋值给一个变量，值的类型称作数据类型。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/08/04/JS溯源之正则表达式/#more" rel="contents">
+            <a class="btn" href="/2016/04/23/JS溯源之变量和数据类型/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -935,7 +939,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
